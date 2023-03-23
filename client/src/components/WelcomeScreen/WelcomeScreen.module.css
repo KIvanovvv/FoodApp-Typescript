@@ -1,4 +1,59 @@
 .wrapper {
-  background-color: green;
+  background-color: #d62828;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 80px;
+}
+
+.header {
+  background-color: #f77f00;
+  text-align: center;
+  position: relative;
+  padding: 20px 100px;
+  margin-top: 4%;
+  border-radius: 20px 0 20px 0;
+}
+.main_header_container {
+  display: flex;
+  gap: 20px;
+}
+.icon {
+  align-self: center;
+  color: #eae2b7;
+  transform: rotate(-10deg);
+}
+
+.main_header,
+.secondary_header {
+  margin: 0;
+  padding: 0;
+  color: #eae2b7;
+}
+
+.main_header {
+  font-size: 40px;
+  font-weight: bold;
+  margin: auto;
+}
+.secondary_header {
+  font-size: 30px;
+  font-weight: 500;
+}
+
+.pizza {
+  animation: pizza-spin infinite 20s linear;
+}
+
+.pizza:hover {
+  cursor: pointer;
+}
+@keyframes pizza-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
