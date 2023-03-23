@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDrumstickBite } from "@fortawesome/free-solid-svg-icons";
 import pizzaImg from "../../resources/pizza.png";
 import { useState } from "react";
+import SelectionOptions from "./SelectionOptions";
 const WelcomeScreen = () => {
   const [selectionVisible, setSelectionVisible] = useState(false);
   return (
@@ -28,6 +29,7 @@ const WelcomeScreen = () => {
             onClick={() => setSelectionVisible(true)}
           />
         )}
+        {selectionVisible && <SelectionOptions />}
       </div>
     </div>
   );
