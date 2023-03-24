@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import classes from "./SelectionOptions.module.css";
 import pizzaImg from "../../resources/pizza2.png";
 import burgerImg from "../../resources/burger.png";
@@ -8,6 +9,10 @@ import chineseImg from "../../resources/chinese.png";
 import menuImg from "../../resources/menu.png";
 
 const SelectionOptions = () => {
+  const navigate = useNavigate();
+  const onSearchHandler = () => {
+    navigate("/menu");
+  };
   return (
     <div className={classes.main_menu}>
       <div className={classes.first_row}>
@@ -25,7 +30,7 @@ const SelectionOptions = () => {
           <img src={pizzaImg} className={classes.img} alt="Pizza" />
           <p className={classes.card_name}>Pizza</p>
         </div>
-        <div className={classes.search_card}>
+        <div className={classes.search_card} onClick={onSearchHandler}>
           <img src={menuImg} className={classes.img} alt="menu" />
           <p className={classes.card_name}>Search</p>
         </div>

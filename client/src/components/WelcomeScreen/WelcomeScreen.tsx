@@ -10,7 +10,7 @@ const WelcomeScreen = () => {
     <div className={classes.wrapper}>
       <div className={classes.header}>
         <div className={classes.main_header_container}>
-          <p className={classes.main_header}>Welocme to FoodApp</p>
+          <p className={classes.main_header}>Welcome to FoodApp</p>
           <FontAwesomeIcon
             icon={faDrumstickBite}
             className={classes.icon}
@@ -27,6 +27,7 @@ const WelcomeScreen = () => {
             src={pizzaImg}
             className={classes.pizza}
             onClick={() => setSelectionVisible(true)}
+            alt=""
           />
         )}
         {selectionVisible && <SelectionOptions />}
