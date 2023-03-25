@@ -14,7 +14,7 @@ const Header = () => {
         />
       </div>
       <div className={classes.link_container}>
-        <Link to={"/menu/all"} className={classes.link_btn}>
+        <Link to={"/menu"} className={classes.link_btn}>
           All
         </Link>
         <Link to={"/menu/pizza"} className={classes.link_btn}>

@@ -1,6 +1,36 @@
 import classes from "./Restaurants.module.css";
+import ListRestourant from "./ListRestourant";
 const testImgUrl =
   "https://res.cloudinary.com/tkwy-prod-eu/image/upload/c_thumb,h_136,w_288/f_auto/q_auto/dpr_1.0/v1610955877/static-takeaway-com/images/generic/heroes/351/351_lunch_6";
+const DummyData = [
+  {
+    _id: `asd${(Math.random() * 100).toString()}`,
+    name: "Pri Rumen",
+    rating: [5, 5, 4, 5],
+    minOrder: "10",
+    delivery: "5",
+    freeDelivery: "30",
+    imageUrl: testImgUrl,
+  },
+  {
+    _id: `asd${(Math.random() * 100).toString()}`,
+    name: "Pri Joro",
+    rating: [5, 3, 4, 5, 3],
+    minOrder: "15",
+    delivery: "5",
+    freeDelivery: "35",
+    imageUrl: testImgUrl,
+  },
+  {
+    _id: `asd${(Math.random() * 100).toString()}`,
+    name: "Pri Pacho",
+    rating: [3, 4, 4],
+    minOrder: "10",
+    delivery: "5",
+    freeDelivery: "25",
+    imageUrl: testImgUrl,
+  },
+];
 const Restaurants = () => {
   return (
     <div className={classes.wrapper}>
@@ -23,38 +53,9 @@ const Restaurants = () => {
         </div>
       </div>
       <ul className={classes.ul}>
-        <li className={classes.li}>
-          <div className={classes.img_container}>
-            <img src={testImgUrl} alt="" className={classes.img} />
-          </div>
-          <div className={classes.info_container}>
-            <div className={classes.name_container}>
-              <p className={classes.name}>Name</p>
-              <p className={classes.review}>Review</p>
-            </div>
-            <div className={classes.pricing_container}>
-              <p className={classes.min_order}>Min order: 10$</p>
-              <p className={classes.delivery_price}>Delivery price: 5$</p>
-              <p className={classes.free_delivery}>Free delivery over: 50$</p>
-            </div>
-          </div>
-        </li>
-        <li className={classes.li}>
-          <div className={classes.img_container}>
-            <img src={testImgUrl} alt="" />
-          </div>
-          <div className={classes.info_container}>
-            <div className={classes.name_container}>
-              <p className={classes.name}>Name</p>
-              <p className={classes.review}>Review</p>
-            </div>
-            <div className={classes.pricing_container}>
-              <p className={classes.min_order}>Min order: 10$</p>
-              <p className={classes.delivery_price}>Delivery price: 5$</p>
-              <p className={classes.free_delivery}>Free delivery over: 50$</p>
-            </div>
-          </div>
-        </li>
+        {DummyData.map((x) => (
+          <ListRestourant key={x._id} {...x} />
+        ))}
       </ul>
     </div>
   );
