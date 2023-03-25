@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
 import classes from "./Header.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDrumstickBite } from "@fortawesome/free-solid-svg-icons";
+import {
+  faDrumstickBite,
+  faCartShopping,
+} from "@fortawesome/free-solid-svg-icons";
 const Header = () => {
   return (
     <div className={classes.nav_container}>
@@ -35,6 +38,14 @@ const Header = () => {
         <Link to={"/menu/chinese"} className={classes.link_btn}>
           Chinese
         </Link>
+      </div>
+      <div className={classes.cart_container}>
+        <FontAwesomeIcon
+          icon={faCartShopping}
+          className={classes.cart}
+          size={"1x"}
+        />
+        <p className={classes.counter}>2</p>
       </div>
     </div>
   );

@@ -18,7 +18,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 3px solid black;
+  background-color: #d62828;
+  padding: 15px 50px;
+  border-radius: 20px;
   gap: 40px;
 }
 .li {
@@ -28,11 +30,13 @@
   background-color: #f77f00;
   min-width: 660px;
   padding-right: 20px;
+  border-radius: 20px;
   gap: 20px;
   /* color: #eae2b7; */
 }
 .li:hover {
   cursor: pointer;
+  background-color: #f4922a;
 }
 .pricing_container {
   display: flex;
@@ -96,4 +100,8 @@
 }
 .rating {
   font-weight: bold;
+}
+.img {
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
 }

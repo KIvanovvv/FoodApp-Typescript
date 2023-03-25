@@ -30,6 +30,24 @@ const DummyData = [
     freeDelivery: "25",
     imageUrl: testImgUrl,
   },
+  {
+    _id: `asd${(Math.random() * 100).toString()}`,
+    name: "Toro",
+    rating: [5, 5, 5, 4, 4],
+    minOrder: "20",
+    delivery: "10",
+    freeDelivery: "60",
+    imageUrl: testImgUrl,
+  },
+  {
+    _id: `asd${(Math.random() * 100).toString()}`,
+    name: "Maxi",
+    rating: [3, 2, 1, 4, 5],
+    minOrder: "15",
+    delivery: "3",
+    freeDelivery: "20",
+    imageUrl: testImgUrl,
+  },
 ];
 const Restaurants = () => {
   return (

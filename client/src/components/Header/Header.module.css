@@ -1,5 +1,5 @@
 .nav_container {
-  background-color: red;
+  background-color: #d62828;
   display: flex;
   align-items: last baseline;
   justify-content: flex-start;
@@ -46,6 +46,26 @@
   align-self: center;
   color: #eae2b7;
   scale: 1.5;
+}
+.cart_container {
+  /* background-color: green; */
+  position: relative;
+}
+.cart_container:hover {
+  cursor: pointer;
+}
+
+.cart {
+  scale: 2;
+  color: #eae2b7;
+}
+.counter {
+  position: absolute;
+  top: -18px;
+  left: 7px;
+  font-size: 14px;
+  font-weight: bold;
+  color: green;
 }
 
 @media all and (max-height: 840px) {

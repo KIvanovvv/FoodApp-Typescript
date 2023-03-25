@@ -4,12 +4,15 @@ import classes from "./RestaurantMenu.module.css";
 const MenuHeader: React.FC<{
   bgUrl: string;
   name: string;
-  ratingPoints: number;
-  ratedCount: number;
+  rating: number[];
   minOrder: string;
   delivery: string;
   freeDelivery: string;
 }> = (props) => {
+  let ratingPoints =
+    props.rating.reduce((a, b) => {
+      return a + b;
+    }, 0) / props.rating.length;
   return (
     <>
       <img src={props.bgUrl} alt={""} className={classes.background} />
@@ -23,10 +26,10 @@ const MenuHeader: React.FC<{
               <FontAwesomeIcon icon={faStar} color={"gold"} />
               <span className={classes.rating}>
                 {" "}
-                {`${props.ratingPoints.toFixed(1)} (${props.ratedCount})`}
+                {`${ratingPoints.toFixed(1)} (${props.rating.length})`}
               </span>
               <div className={classes.hint}>
-                Rated by {props.ratedCount} customers
+                Rated by {props.rating.length} customers
               </div>
             </p>
           </div>
