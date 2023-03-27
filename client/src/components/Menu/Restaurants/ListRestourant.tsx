@@ -2,17 +2,23 @@ import classes from "./Restaurants.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const ListRestourant: React.FC<{
-  imageUrl: string;
+  cardImageUrl: string;
+  pageImageUrl: string;
   name: string;
   rating: number[];
-  minOrder: string;
-  delivery: string;
-  freeDelivery: string;
+  minOrder: number;
+  delivery: number;
+  freeDelivery: number;
   _id: string;
 }> = (props) => {
   const navigate = useNavigate();
+  const [hasRating, setHasRating] = useState(false);
+  if (props.rating.length > 0) {
+    setHasRating(true);
+  }
   let ratingPoints =
     props.rating.reduce((a, b) => {
       return a + b;
@@ -23,7 +29,7 @@ const ListRestourant: React.FC<{
   return (
     <li className={classes.li} onClick={onListClickHandler}>
       <div className={classes.img_container}>
-        <img src={props.imageUrl} alt="" className={classes.img} />
+        <img src={props.cardImageUrl} alt="" className={classes.img} />
       </div>
       <div className={classes.info_container}>
         <div className={classes.name_container}>
@@ -32,7 +38,9 @@ const ListRestourant: React.FC<{
             <FontAwesomeIcon icon={faStar} color={"gold"} />
             <span className={classes.rating}>
               {" "}
-              {`${ratingPoints.toFixed(1)} (${props.rating.length})`}
+              {`${hasRating ? ratingPoints.toFixed(1) : "N/A"} (${
+                props.rating.length
+              })`}
             </span>
           </p>
         </div>

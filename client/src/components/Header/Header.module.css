@@ -1,11 +1,14 @@
 .nav_container {
   background-color: #d62828;
   display: flex;
+  position: fixed;
+  width: 100%;
   align-items: last baseline;
   justify-content: flex-start;
   padding: 10px 20px;
   gap: 20%;
   height: 100px;
+  z-index: 2;
 }
 .link_container {
   display: flex;

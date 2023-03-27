@@ -1,5 +1,8 @@
 import classes from "./Restaurants.module.css";
 import ListRestourant from "./ListRestourant";
+import { useEffect, useState } from "react";
+import { getRestaurants } from "../../../services/restaurantServices";
+import { RestaurantModel } from "../../models/types";
 const testImgUrl =
   "https://res.cloudinary.com/tkwy-prod-eu/image/upload/c_thumb,h_136,w_288/f_auto/q_auto/dpr_1.0/v1610955877/static-takeaway-com/images/generic/heroes/351/351_lunch_6";
 const DummyData = [
@@ -50,6 +53,15 @@ const DummyData = [
   },
 ];
 const Restaurants = () => {
+  const [restaurants, setRestaurants] = useState<RestaurantModel[]>([]);
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    (async function fetchRestaurants() {
+      setLoading(true);
+      setRestaurants(await getRestaurants());
+      setLoading(false);
+    })();
+  }, []);
   return (
     <div className={classes.wrapper}>
       <div className={classes.actions}>
@@ -71,7 +83,7 @@ const Restaurants = () => {
         </div>
       </div>
       <ul className={classes.ul}>
-        {DummyData.map((x) => (
+        {restaurants.map((x) => (
           <ListRestourant key={x._id} {...x} />
         ))}
       </ul>
