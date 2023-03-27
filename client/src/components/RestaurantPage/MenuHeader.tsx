@@ -28,10 +28,10 @@ const MenuHeader: React.FC<{
                 {" "}
                 {`${ratingPoints.toFixed(1)} (${props.rating.length})`}
               </span>
-              <div className={classes.hint}>
-                Rated by {props.rating.length} customers
-              </div>
             </p>
+            <div className={classes.hint}>
+              Rated by {props.rating.length} customers
+            </div>
           </div>
         </div>
       </div>

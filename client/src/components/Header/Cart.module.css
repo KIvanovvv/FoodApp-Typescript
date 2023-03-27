@@ -1,0 +1,108 @@
+.container {
+  width: 300px;
+  height: 360px;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  background-color: #d62828;
+  position: absolute;
+  left: 80%;
+  top: 12.2%;
+  overflow: auto;
+  text-align: center;
+  animation: slide normal 0.3s linear;
+  padding: 10px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+@keyframes slide {
+  from {
+    height: 0px;
+  }
+  to {
+    height: 360px;
+  }
+}
+
+.ul {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin: 0;
+
+  gap: 10px;
+  /* overflow: hidden; */
+}
+
+.li {
+  list-style-type: none;
+  display: flex;
+  background-color: #eae2b7;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 20px;
+  border-radius: 20px;
+  /* overflow: hidden; */
+  animation: slide-ul normal 0.3s linear;
+}
+@keyframes slide-ul {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.headline {
+  margin: 0;
+  font-size: 20px;
+  font-weight: bold;
+  color: #eae2b7;
+}
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.counter {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+.name,
+.price {
+  margin: 0;
+}
+.name {
+  font-weight: bold;
+}
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.footer div {
+  background-color: #f77f00;
+  padding: 5px 20px;
+  border-radius: 20px;
+  cursor: default;
+}
+.total {
+  margin: 0;
+  font-weight: bold;
+  color: #eae2b7;
+}
+.btn_checkout {
+  font-size: 18px;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-weight: bold;
+  background-color: #f77f00;
+  border: none;
+  cursor: pointer;
+  color: #eae2b7;
+}
+.btn_checkout:hover {
+  color: green;
+}

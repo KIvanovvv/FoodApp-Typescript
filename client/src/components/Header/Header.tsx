@@ -5,7 +5,12 @@ import {
   faDrumstickBite,
   faCartShopping,
 } from "@fortawesome/free-solid-svg-icons";
-const Header = () => {
+import { CartItem } from "../../context/contextWithReducer/types";
+import Cart from "./Cart";
+import { useState } from "react";
+
+const Header: React.FC<{ items: CartItem[] }> = (props) => {
+  const [cartVisible, setCartVisible] = useState(false);
   return (
     <div className={classes.nav_container}>
       <div className={classes.header_container}>
@@ -44,9 +49,11 @@ const Header = () => {
           icon={faCartShopping}
           className={classes.cart}
           size={"1x"}
+          onClick={() => setCartVisible((curr) => !curr)}
         />
-        <p className={classes.counter}>2</p>
+        <p className={classes.counter}>{props.items.length}</p>
       </div>
+      {cartVisible && <Cart />}
     </div>
   );
 };
