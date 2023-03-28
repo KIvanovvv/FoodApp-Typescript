@@ -5,7 +5,7 @@ import RestaurantMenu from "./RestaurantMenu";
 import { useContext } from "react";
 import { CartContext } from "../../context/contextWithReducer";
 const Restaurant = () => {
-  const { resId } = useParams();
+
   const { items } = useContext(CartContext);
 
   return (

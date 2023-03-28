@@ -1,4 +1,7 @@
-const { getRestaurants } = require("../services/restaurantservices.js");
+const {
+  getRestaurants,
+  getRestaurantById,
+} = require("../services/restaurantServices.js");
 
 const restaurantController = require("express").Router();
 

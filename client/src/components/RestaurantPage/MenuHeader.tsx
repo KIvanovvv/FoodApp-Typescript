@@ -1,21 +1,15 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import classes from "./RestaurantMenu.module.css";
-const MenuHeader: React.FC<{
-  bgUrl: string;
-  name: string;
-  rating: number[];
-  minOrder: string;
-  delivery: string;
-  freeDelivery: string;
-}> = (props) => {
+import { MenuHeaderProps } from "../../models/types";
+const MenuHeader: React.FC<MenuHeaderProps> = (props) => {
   let ratingPoints =
     props.rating.reduce((a, b) => {
       return a + b;
     }, 0) / props.rating.length;
   return (
     <>
-      <img src={props.bgUrl} alt={""} className={classes.background} />
+      <img src={props.pageImageUrl} alt={""} className={classes.background} />
       <div className={classes.first_row}>
         <div className={classes.header_wrapper}>
           <div className={classes.header}>
