@@ -4,7 +4,12 @@ import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import { useContext } from "react";
 import { CartContext } from "../../context/contextWithReducer";
 
-const ListItem = () => {
+const ListItem: React.FC<{
+  name: string;
+  price: number;
+  description: string;
+  category: string;
+}> = (props) => {
   const { actions } = useContext(CartContext);
   const Dum_item = {
     _id: "asd12",
@@ -23,11 +28,11 @@ const ListItem = () => {
   return (
     <li className={classes.li}>
       <div className={classes.item_container}>
-        <p className={classes.name}>{Dum_item.name}</p>
-        <p className={classes.price}>Price: {Dum_item.price}$</p>
+        <p className={classes.name}>{props.name}</p>
+        <p className={classes.price}>Price: {props.price}$</p>
       </div>
       <textarea
-        defaultValue={Dum_item.description}
+        defaultValue={props.description}
         readOnly={true}
         className={classes.textarea}
       />

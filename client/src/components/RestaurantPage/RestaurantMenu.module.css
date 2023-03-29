@@ -100,5 +100,17 @@
   font-weight: bold;
   color: #eae2b7;
   margin: 0;
-  padding-top: 10px;
+  padding: 10px;
+}
+
+.cat_tags {
+  font-weight: bold;
+  font-size: 20px;
+  margin: 0;
+  color: #eae2b7;
+}
+.cat_container {
+  display: flex;
+  flex-direction: column;
+  padding: 0 40px;
 }

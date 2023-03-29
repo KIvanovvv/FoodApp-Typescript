@@ -9,6 +9,8 @@ const restaurantSchema = new Schema({
   freeDelivery: { type: Number, required: true },
   cardImageUrl: { type: String, required: true },
   pageImageUrl: { type: String, required: true },
+  food: { type: [], default: [] },
+  category: { type: [], default: [] },
 });
 
 const Restaurant = model("Restaurant", restaurantSchema);

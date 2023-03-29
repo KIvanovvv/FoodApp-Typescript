@@ -8,6 +8,8 @@ export type RestaurantModel = {
   minOrder: number;
   delivery: number;
   freeDelivery: number;
+  food: Food[];
+  category: string[];
 };
 
 export type MenuHeaderProps = {
@@ -17,4 +19,11 @@ export type MenuHeaderProps = {
   minOrder: number;
   delivery: number;
   freeDelivery: number;
+};
+
+type Food = {
+  category: string;
+  description: string;
+  name: string;
+  price: number;
 };
