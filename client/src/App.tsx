@@ -11,6 +11,7 @@ function App() {
         <Route path="/" element={<WelcomeScreen />} />
 
         <Route path="/menu" element={<Menu />} />
+        <Route path="/menu/:category" element={<Menu />} />
         <Route path="/restaurant/:resId" element={<RestaurantPage />} />
       </Routes>
     </CartContextProvider>

@@ -15,9 +15,9 @@ const ListRestourant: React.FC<{
   _id: string;
 }> = (props) => {
   const navigate = useNavigate();
-  const [hasRating, setHasRating] = useState(false);
+  let hasRating = false;
   if (props.rating.length > 0) {
-    setHasRating(true);
+    hasRating = true;
   }
   let ratingPoints =
     props.rating.reduce((a, b) => {

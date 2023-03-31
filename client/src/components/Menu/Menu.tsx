@@ -3,15 +3,16 @@ import Restaurants from "./Restaurants/Restaurants";
 import classes from "./Menu.module.css";
 import { useContext } from "react";
 import { CartContext } from "../../context/contextWithReducer";
+import { useParams } from "react-router";
 
 const Menu = () => {
   const { items } = useContext(CartContext);
-  console.log(items);
+  const { category } = useParams();
 
   return (
     <div className={classes.wrapper}>
       <Header items={items} />
-      <Restaurants />
+      <Restaurants category={category ? category : ""} />
     </div>
   );
 };

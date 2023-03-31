@@ -20,7 +20,7 @@
     height: 0px;
   }
   to {
-    height: 360px;
+    height: 320px;
   }
 }
 
@@ -105,4 +105,13 @@
 }
 .btn_checkout:hover {
   color: green;
+}
+.empty {
+  color: #eae2b7;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.icon {
+  cursor: pointer;
 }

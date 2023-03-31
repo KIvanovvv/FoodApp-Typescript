@@ -7,10 +7,18 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { CartItem } from "../../context/contextWithReducer/types";
 import Cart from "./Cart";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { CartContext } from "../../context/contextWithReducer";
 
 const Header: React.FC<{ items: CartItem[] }> = (props) => {
   const [cartVisible, setCartVisible] = useState(false);
+  const { items } = useContext(CartContext);
+  useEffect(() => {
+    if (items.length > 0) {
+      setCartVisible(true);
+    }
+  }, []);
+  const quantity = items.reduce((a, b) => a + b.quantity, 0);
   return (
     <div className={classes.nav_container}>
       <div className={classes.header_container}>
@@ -51,7 +59,7 @@ const Header: React.FC<{ items: CartItem[] }> = (props) => {
           size={"1x"}
           onClick={() => setCartVisible((curr) => !curr)}
         />
-        <p className={classes.counter}>{props.items.length}</p>
+        <p className={classes.counter}>{quantity}</p>
       </div>
       {cartVisible && <Cart />}
     </div>

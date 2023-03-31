@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { getRestaurants } from "../../../services/restaurantServices";
 import { RestaurantModel } from "../../../models/types";
 
-const Restaurants = () => {
+const Restaurants:React.FC<{category:string}> = (props) => {
   const [restaurants, setRestaurants] = useState<RestaurantModel[]>([]);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
