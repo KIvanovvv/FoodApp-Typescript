@@ -1,27 +1,19 @@
 .main_menu {
-  /* background-color: green; */
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 460px;
   gap: 50px;
-  animation: selection-menu normal 0.5s linear;
+  animation: selection-menu 0.5s ease-in-out;
 }
+
 .first_row,
 .second_row,
 .third_row {
   display: flex;
-  flex-direction: row;
-}
-.first_row {
   gap: 50px;
 }
-.second_row {
-  gap: 50px;
-}
-.third_row {
-  gap: 50px;
-}
+
 @keyframes selection-menu {
   from {
     transform: scale(0.1);
@@ -31,13 +23,7 @@
   }
 }
 
-.burger_card,
-.pizza_card,
-.kebab_card,
-.sushi_card,
-.chinese_card,
-.mexican_card,
-.search_card {
+.card {
   background-color: #f77f00;
   display: flex;
   flex-direction: column;
@@ -47,50 +33,27 @@
   max-width: 100px;
   color: #eae2b7;
   font-weight: 500;
-  animation: items normal 0.5s linear;
+  animation: items 0.5s ease-in-out;
   border-radius: 50%;
-}
-@keyframes items {
-  from {
-    transform: scale(0.4);
-  }
-  to {
-    transform: scale(1);
-  }
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
-.burger_card:hover,
-.pizza_card:hover,
-.kebab_card:hover,
-.sushi_card:hover,
-.chinese_card:hover,
-.mexican_card:hover,
-.search_card:hover {
+.card:hover {
   background-color: #eae2b7;
   color: #f77f00;
-  cursor: pointer;
 }
-.burger_card:hover > .img,
-.pizza_card:hover > .img,
-.kebab_card:hover > .img,
-.sushi_card:hover > .img,
-.chinese_card:hover > .img,
-.mexican_card:hover > .img,
-.search_card:hover > .img {
-  animation: food-spin infinite 20s linear;
+
+.card:hover > .img {
+  color: #f77f00;
+  animation: food-spin 20s linear infinite;
 }
-@keyframes food-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+
 .card_name {
   margin: 0;
   padding: 0;
   font-size: 18px;
+  text-decoration: none;
 }
 
 .img {
@@ -98,16 +61,19 @@
 }
 
 @media all and (max-height: 840px) {
-  .burger_card,
-  .pizza_card,
-  .kebab_card,
-  .sushi_card,
-  .chinese_card,
-  .mexican_card,
-  .search_card {
+  .card {
     max-width: 80px;
   }
   .img {
     width: 80px;
+  }
+}
+
+@keyframes food-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }

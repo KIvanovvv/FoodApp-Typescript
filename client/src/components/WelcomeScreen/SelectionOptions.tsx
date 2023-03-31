@@ -10,41 +10,39 @@ import menuImg from "../../resources/menu.png";
 
 const SelectionOptions = () => {
   const navigate = useNavigate();
-  const onSearchHandler = () => {
-    navigate("/menu");
-  };
+
   return (
     <div className={classes.main_menu}>
       <div className={classes.first_row}>
-        <div className={classes.burger_card}>
+        <div className={classes.card} onClick={() => navigate("/menu/burger")}>
           <img src={burgerImg} className={classes.img} alt="Burger" />
           <p className={classes.card_name}>Burger</p>
         </div>
-        <div className={classes.sushi_card}>
+        <div className={classes.card} onClick={() => navigate("/menu/sushi")}>
           <img src={sushiImg} className={classes.img} alt="Sushi" />
           <p className={classes.card_name}>Sushi</p>
         </div>
       </div>
       <div className={classes.second_row}>
-        <div className={classes.pizza_card}>
+        <div className={classes.card} onClick={() => navigate("/menu/pizza")}>
           <img src={pizzaImg} className={classes.img} alt="Pizza" />
           <p className={classes.card_name}>Pizza</p>
         </div>
-        <div className={classes.search_card} onClick={onSearchHandler}>
+        <div className={classes.card} onClick={() => navigate("/menu")}>
           <img src={menuImg} className={classes.img} alt="menu" />
           <p className={classes.card_name}>Search</p>
         </div>
-        <div className={classes.chinese_card}>
+        <div className={classes.card} onClick={() => navigate("/menu/chinese")}>
           <img src={chineseImg} className={classes.img} alt="chinese" />
           <p className={classes.card_name}>Chinese</p>
         </div>
       </div>
       <div className={classes.third_row}>
-        <div className={classes.kebab_card}>
+        <div className={classes.card} onClick={() => navigate("/menu/kebab")}>
           <img src={kebabImg} className={classes.img} alt="kebab" />
           <p className={classes.card_name}>Kebab</p>
         </div>
-        <div className={classes.mexican_card}>
+        <div className={classes.card} onClick={() => navigate("/menu/mexican")}>
           <img src={mexicanImg} className={classes.img} alt="taco" />
           <p className={classes.card_name}>Mexican</p>
         </div>

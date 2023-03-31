@@ -9,18 +9,21 @@
   top: 100%;
   overflow: auto;
   text-align: center;
-  animation: slide normal 0.2s linear;
+  transform-origin: top;
+  transform: scaleY(0);
+  animation: slide 0.2s linear forwards;
   padding: 10px 20px;
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
+
 @keyframes slide {
   from {
-    height: 0px;
+    transform: scaleY(0);
   }
   to {
-    height: 320px;
+    transform: scaleY(1);
   }
 }
 
