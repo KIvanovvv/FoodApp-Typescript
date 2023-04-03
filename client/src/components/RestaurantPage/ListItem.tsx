@@ -9,6 +9,9 @@ const ListItem: React.FC<{
   price: number;
   description: string;
   category: string;
+  delivery: number;
+  freeDelivery: number;
+  restaurantName: string;
 }> = (props) => {
   const { actions } = useContext(CartContext);
 
@@ -17,6 +20,9 @@ const ListItem: React.FC<{
       itemName: props.name,
       price: props.price,
       quantity: 1,
+      delivery: props.delivery,
+      freeDelivery: props.freeDelivery,
+      restaurantName: props.restaurantName,
     });
   };
   return (

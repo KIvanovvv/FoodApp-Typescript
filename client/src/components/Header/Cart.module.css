@@ -123,3 +123,13 @@
 .icon {
   cursor: pointer;
 }
+
+@media screen and (max-width: 1700px) {
+  .container {
+    left: 78%;
+    width: 260px;
+    border-left: 2px solid #f77f00;
+    border-right: 2px solid #f77f00;
+    border-bottom: 2px solid #f77f00;
+  }
+}

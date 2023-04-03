@@ -16,11 +16,29 @@ const Cart = () => {
     if (!item) return;
     actions.addItem(item);
   };
+  const allDeliveries = [
+    {
+      price: [items[0]?.delivery || 0],
+      restaurantName: [items[0]?.restaurantName || ""],
+    },
+  ];
+  items.forEach((x) => {
+    const existing = allDeliveries.map((y) =>
+      y.restaurantName.find((z) => z === x.restaurantName)
+    );
+    console.log(existing);
 
-  const total = items.reduce((a, b) => a + b.price, 0);
+    // if (x.restaurantName !== allDeliveries.restaurantName[0]) {
+    //   allDeliveries.price.push(x.delivery);
+    //   allDeliveries.restaurantName.push(x.restaurantName);
+    // }
+  });
+  const totalNoDelivery = items.reduce((a, b) => a + b.price, 0);
 
   const handleCheckout = () => {
     setShowModal(true);
+    console.log(items);
+    console.log(allDeliveries);
   };
 
   const closeModal = () => {
@@ -29,7 +47,13 @@ const Cart = () => {
 
   return (
     <>
-      {showModal && <CartModal closeModal={closeModal} total={total}/>}
+      {showModal && (
+        <CartModal
+          closeModal={closeModal}
+          total={totalNoDelivery}
+          allDeliveries={allDeliveries}
+        />
+      )}
       <div className={classes.container}>
         <p className={classes.headline}>Cart</p>
         <ul className={classes.ul}>
@@ -59,11 +83,14 @@ const Cart = () => {
                 </div>
               </li>
             ))}
+          {}
         </ul>
         {items.length > 0 && (
           <div className={classes.footer}>
             <div>
-              <p className={classes.total}>Total amount: {total.toFixed(2)}$</p>
+              <p className={classes.total}>
+                Total amount: {totalNoDelivery.toFixed(2)}$
+              </p>
             </div>
             <button className={classes.btn_checkout} onClick={handleCheckout}>
               Checkout

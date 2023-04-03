@@ -22,6 +22,9 @@ export type CartItem = {
   quantity: number;
   itemName: string;
   price: number;
+  restaurantName: string;
+  delivery: number;
+  freeDelivery: number;
 };
 
 export interface CartContextInterface {

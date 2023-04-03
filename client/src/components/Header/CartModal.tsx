@@ -1,10 +1,15 @@
 import { useContext } from "react";
 import { CartContext } from "../../context/contextWithReducer";
 import classes from "./CartModal.module.css";
-const CartModal: React.FC<{ closeModal: () => void; total: number }> = (
-  props
-) => {
+const CartModal: React.FC<{
+  closeModal: () => void;
+  total: number;
+  allDeliveries: {};
+}> = (props) => {
   const { items } = useContext(CartContext);
+  const onOrderHandler = () => {
+    console.log("Ordering...");
+  };
   return (
     <>
       <div className={classes.backdrop} onClick={props.closeModal}>
@@ -37,7 +42,7 @@ const CartModal: React.FC<{ closeModal: () => void; total: number }> = (
         <div className={classes.order}>
           <ul className={classes.ul}>
             {items.map((x) => (
-              <li className={classes.li}>
+              <li className={classes.li} key={x.itemName}>
                 <p>
                   <span>{x.itemName}</span> <span>{x.quantity}</span> x{" "}
                   <span>{x.price}$</span>
@@ -46,14 +51,16 @@ const CartModal: React.FC<{ closeModal: () => void; total: number }> = (
             ))}
           </ul>
           <div className={classes.total}>
-            <p>Total Amount: {props.total}$</p>
+            <p>Total Amount: {props.total.toFixed(2)}$</p>
           </div>
         </div>
         <div className={classes.actions}>
           <button className={classes.btn_cancel} onClick={props.closeModal}>
             Cancel
           </button>
-          <button className={classes.btn_order}>Order</button>
+          <button className={classes.btn_order} onClick={onOrderHandler}>
+            Order
+          </button>
         </div>
       </div>
     </>

@@ -109,8 +109,16 @@
   margin: 0;
   color: #eae2b7;
 }
+.cat_tags:first-letter {
+  text-transform: uppercase;
+}
 .cat_container {
   display: flex;
   flex-direction: column;
   padding: 0 40px;
+}
+@media screen and (max-width: 1700px) {
+  .hint {
+    top: 51%;
+  }
 }
