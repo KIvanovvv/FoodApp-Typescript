@@ -81,6 +81,10 @@
 .price {
   margin: 0;
 }
+.free {
+  color: green;
+  font-weight: bold;
+}
 .name {
   font-weight: bold;
 }

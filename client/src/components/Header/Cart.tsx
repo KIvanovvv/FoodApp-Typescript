@@ -4,6 +4,7 @@ import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 import { useContext, useState } from "react";
 import { CartContext } from "../../context/contextWithReducer";
 import CartModal from "./CartModal";
+import { FreeDeliveryData, UniqueDelivery } from "../../models/types";
 
 const Cart = () => {
   const [showModal, setShowModal] = useState(false);
@@ -16,29 +17,55 @@ const Cart = () => {
     if (!item) return;
     actions.addItem(item);
   };
-  const allDeliveries = [
-    {
-      price: [items[0]?.delivery || 0],
-      restaurantName: [items[0]?.restaurantName || ""],
-    },
-  ];
-  items.forEach((x) => {
-    const existing = allDeliveries.map((y) =>
-      y.restaurantName.find((z) => z === x.restaurantName)
-    );
-    console.log(existing);
+  const uniqueDeliveries: UniqueDelivery[] = [];
 
-    // if (x.restaurantName !== allDeliveries.restaurantName[0]) {
-    //   allDeliveries.price.push(x.delivery);
-    //   allDeliveries.restaurantName.push(x.restaurantName);
-    // }
+  items.forEach((item) => {
+    const existing = uniqueDeliveries.find(
+      (delivery: any) => delivery.restaurantName === item.restaurantName
+    );
+    if (!existing) {
+      uniqueDeliveries.push({
+        price: item.delivery,
+        restaurantName: item.restaurantName,
+        hasFreeDelivery: false,
+      });
+    }
   });
-  const totalNoDelivery = items.reduce((a, b) => a + b.price, 0);
+
+  const freeDeliveryData: FreeDeliveryData[] = [];
+  uniqueDeliveries.forEach((x) => {
+    const result = items
+      .filter((item) => item.restaurantName === x.restaurantName)
+      .reduce((a, b) => a + b.price, 0);
+
+    freeDeliveryData.push({
+      price: result,
+      restaurantName: x.restaurantName,
+      freeDelivery: items.find((y) => y.restaurantName === x.restaurantName)
+        ?.freeDelivery,
+    });
+  });
+
+  freeDeliveryData.forEach((data) => {
+    if (data.price >= data.freeDelivery!) {
+      const index = uniqueDeliveries.findIndex(
+        (x) => x.restaurantName === data.restaurantName
+      );
+      uniqueDeliveries[index].hasFreeDelivery = true;
+    }
+  });
+  uniqueDeliveries.forEach((x: any) => {
+    if (x.hasFreeDelivery) {
+      x.price = 0;
+    }
+  });
+  const total =
+    items.reduce((a, b) => a + b.price, 0) +
+    uniqueDeliveries.reduce((a: number, b: any) => a + b.price, 0);
 
   const handleCheckout = () => {
     setShowModal(true);
-    console.log(items);
-    console.log(allDeliveries);
+  
   };
 
   const closeModal = () => {
@@ -50,8 +77,8 @@ const Cart = () => {
       {showModal && (
         <CartModal
           closeModal={closeModal}
-          total={totalNoDelivery}
-          allDeliveries={allDeliveries}
+          total={total}
+          uniqueDeliveries={uniqueDeliveries}
         />
       )}
       <div className={classes.container}>
@@ -62,7 +89,7 @@ const Cart = () => {
               <li className={classes.li} key={x.itemName}>
                 <div className={classes.info_container}>
                   <p className={classes.name}>{x.itemName}</p>
-                  <p className={classes.price}>{x.price}$</p>
+                  <p className={classes.price}>{x.price.toFixed(2)}$</p>
                 </div>
                 <div className={classes.actions}>
                   <p className={classes.counter}>{x.quantity}</p>
@@ -83,14 +110,31 @@ const Cart = () => {
                 </div>
               </li>
             ))}
-          {}
+          {uniqueDeliveries.map(
+            (x: { restaurantName: string; price: number }) => (
+              <li className={classes.li} key={x.restaurantName}>
+                <div className={classes.info_container}>
+                  <p className={classes.name}>
+                    Delivery from {x.restaurantName}
+                  </p>
+                  <p
+                    className={
+                      x.price === 0
+                        ? `${classes.price} ${classes.free}`
+                        : classes.price
+                    }
+                  >
+                    {x.price === 0 ? "Free" : `${x.price} $`}
+                  </p>
+                </div>
+              </li>
+            )
+          )}
         </ul>
         {items.length > 0 && (
           <div className={classes.footer}>
             <div>
-              <p className={classes.total}>
-                Total amount: {totalNoDelivery.toFixed(2)}$
-              </p>
+              <p className={classes.total}>Total amount: {total.toFixed(2)}$</p>
             </div>
             <button className={classes.btn_checkout} onClick={handleCheckout}>
               Checkout

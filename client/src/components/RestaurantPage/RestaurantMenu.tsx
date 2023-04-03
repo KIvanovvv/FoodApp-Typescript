@@ -46,7 +46,9 @@ const RestaurantMenu = () => {
           className={classes.cat_container}
           key={Object.keys(categoryObject)[0]}
         >
-          <p className={classes.cat_tags}>{Object.keys(categoryObject)[0]}</p>
+          <p className={classes.cat_tags}>
+            {Object.keys(categoryObject).flat()}
+          </p>
           <ul className={classes.ul}>
             {categoryObject[Object.keys(categoryObject)[0]]?.map((item) => (
               <ListItem

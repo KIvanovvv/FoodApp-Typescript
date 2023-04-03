@@ -4,7 +4,7 @@ import classes from "./CartModal.module.css";
 const CartModal: React.FC<{
   closeModal: () => void;
   total: number;
-  allDeliveries: {};
+  uniqueDeliveries: { restaurantName: string; price: number }[];
 }> = (props) => {
   const { items } = useContext(CartContext);
   const onOrderHandler = () => {
@@ -45,7 +45,15 @@ const CartModal: React.FC<{
               <li className={classes.li} key={x.itemName}>
                 <p>
                   <span>{x.itemName}</span> <span>{x.quantity}</span> x{" "}
-                  <span>{x.price}$</span>
+                  <span>{x.price.toFixed(2)}$</span>
+                </p>
+              </li>
+            ))}
+            {props.uniqueDeliveries.map((x) => (
+              <li className={classes.li} key={x.restaurantName}>
+                <p>
+                  <span>Delivery / {x.restaurantName}</span>
+                  <span> {x.price}$</span>
                 </p>
               </li>
             ))}

@@ -27,3 +27,14 @@ type Food = {
   name: string;
   price: number;
 };
+
+export type UniqueDelivery = {
+  restaurantName: string;
+  price: number;
+  hasFreeDelivery: boolean;
+};
+export type FreeDeliveryData = {
+  restaurantName: string;
+  price: number;
+  freeDelivery: number | undefined;
+};
