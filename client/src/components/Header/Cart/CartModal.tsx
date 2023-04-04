@@ -27,6 +27,7 @@ const CartModal: React.FC<{
     city,
     phone,
     price: props.total.toFixed(2),
+    uniqueDeliveries:props.uniqueDeliveries
   };
   const onInputClick = () => {
     setError(false);

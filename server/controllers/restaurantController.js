@@ -2,6 +2,7 @@ const {
   getRestaurants,
   getRestaurantById,
   getRestaurantByCategory,
+  updateRestaurantRating,
 } = require("../services/restaurantServices.js");
 
 const restaurantController = require("express").Router();
@@ -28,6 +29,15 @@ restaurantController.get("/menu/:category", async (req, res) => {
     const category = req.params.category;
     const restaurant = await getRestaurantByCategory(category);
     res.status(200).json(restaurant);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
+restaurantController.post("/rating", async (req, res) => {
+  try {
+    const { stars, dataArr } = req.body;
+    await updateRestaurantRating(stars, dataArr);
+    res.status(201).end();
   } catch (err) {
     res.status(400).json({ error: err.message });
   }

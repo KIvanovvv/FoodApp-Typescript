@@ -13,9 +13,19 @@ async function getRestaurantByCategory(category) {
   console.log(restaurant);
   return restaurant;
 }
+async function updateRestaurantRating(stars, dataArr) {
+  dataArr.forEach(async (restaurantInfo) => {
+    const restaurant = await Restaurant.find({
+      name: restaurantInfo.restaurantName,
+    });
+    restaurant[0].rating.push(stars);
+    await restaurant[0].save();
+  });
+}
 
 module.exports = {
   getRestaurants,
   getRestaurantById,
   getRestaurantByCategory,
+  updateRestaurantRating,
 };

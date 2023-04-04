@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faStar } from "@fortawesome/free-solid-svg-icons";
 import { useLocation } from "react-router";
 import Menu from "../Menu/Menu";
+import { submitRating } from "../../services/restaurantServices";
 
 const OrderedPage = () => {
   const { items } = useContext(CartContext);
@@ -16,12 +17,13 @@ const OrderedPage = () => {
   const [fifthStar, setFifthStar] = useState(false);
   const [stars, setStars] = useState(0);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitingRating, setSubmitingRating] = useState(false);
 
   const location = useLocation();
   if (!location.state) {
     return <Menu />;
   }
-  const { name, city, postcode, street, phone, price } =
+  const { name, city, postcode, street, phone, price, uniqueDeliveries } =
     location.state.deliveryInfo;
   const onFirstStarClick = () => {
     setFirstStar(true);
@@ -63,8 +65,12 @@ const OrderedPage = () => {
     setFifthStar(true);
     setStars(5);
   };
-  const onSubmitRating = () => {
+  const onSubmitRating = async () => {
+    setSubmitingRating(true);
+    await submitRating(stars, uniqueDeliveries);
     console.log(stars);
+    console.log(uniqueDeliveries);
+
     setIsSubmitted(true);
   };
 

@@ -42,3 +42,23 @@ export async function getRestaurantByCategory(category: string) {
     throw new Error(err.message);
   }
 }
+export async function submitRating(stars: number, dataArr: []) {
+  try {
+    const respones = await fetch(`${host}/rating`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ stars, dataArr }),
+    });
+    if (!respones.ok) {
+      throw new Error(
+        `Something went wrong with the request: ${respones.status}`
+      );
+    }
+    // const data = await respones.json();
+    // return data;
+  } catch (err: any) {
+    throw new Error(err.message);
+  }
+}
