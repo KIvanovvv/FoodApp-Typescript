@@ -67,6 +67,12 @@
   align-items: center;
   gap: 10px;
 }
+.btns_container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  /* background-color: green; */
+}
 .counter {
   margin: 0;
   font-size: 18px;
@@ -94,19 +100,21 @@
   align-items: center;
   gap: 10px;
 }
-.footer div {
+.total_container {
   background-color: #f77f00;
   padding: 5px 20px;
   border-radius: 20px;
   cursor: default;
+  font-size: 18px;
 }
 .total {
   margin: 0;
   font-weight: bold;
   color: #eae2b7;
 }
-.btn_checkout {
-  font-size: 18px;
+.btn_checkout,
+.btn_clear {
+  font-size: 16px;
   padding: 5px 10px;
   border-radius: 20px;
   font-weight: bold;
@@ -117,6 +125,9 @@
 }
 .btn_checkout:hover {
   color: green;
+}
+.btn_clear:hover {
+  color: red;
 }
 .empty {
   color: #eae2b7;

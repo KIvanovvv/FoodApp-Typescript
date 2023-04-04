@@ -37,9 +37,7 @@ const RestaurantMenu = () => {
         delivery={restaurant?.delivery || 0}
         freeDelivery={restaurant?.freeDelivery || 0}
       />
-      <p className={classes.headline} onClick={() => console.log(data)}>
-        Menu
-      </p>
+      <p className={classes.headline}>Menu</p>
 
       {data.map((categoryObject) => (
         <div

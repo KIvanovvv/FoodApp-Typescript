@@ -2,10 +2,9 @@ import classes from "./Cart.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 import { useContext, useState } from "react";
-import { CartContext } from "../../context/contextWithReducer";
+import { CartContext } from "../../../context/contextWithReducer";
 import CartModal from "./CartModal";
-import { FreeDeliveryData, UniqueDelivery } from "../../models/types";
-
+import { FreeDeliveryData, UniqueDelivery } from "../../../models/types";
 const Cart = () => {
   const [showModal, setShowModal] = useState(false);
   const { items, actions } = useContext(CartContext);
@@ -63,9 +62,11 @@ const Cart = () => {
     items.reduce((a, b) => a + b.price, 0) +
     uniqueDeliveries.reduce((a: number, b: any) => a + b.price, 0);
 
-  const handleCheckout = () => {
+  const onHandleCheckout = () => {
     setShowModal(true);
-  
+  };
+  const onHandleClear = () => {
+    actions.clearCart();
   };
 
   const closeModal = () => {
@@ -133,12 +134,20 @@ const Cart = () => {
         </ul>
         {items.length > 0 && (
           <div className={classes.footer}>
-            <div>
+            <div className={classes.total_container}>
               <p className={classes.total}>Total amount: {total.toFixed(2)}$</p>
             </div>
-            <button className={classes.btn_checkout} onClick={handleCheckout}>
-              Checkout
-            </button>
+            <div className={classes.btns_container}>
+              <button
+                className={classes.btn_checkout}
+                onClick={onHandleCheckout}
+              >
+                Checkout
+              </button>{" "}
+              <button className={classes.btn_clear} onClick={onHandleClear}>
+                Clear Cart
+              </button>{" "}
+            </div>
           </div>
         )}
         {items.length === 0 && (

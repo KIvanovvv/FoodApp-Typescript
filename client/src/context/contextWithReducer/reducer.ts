@@ -22,7 +22,6 @@ export default (state: CartItem[], action: ReducerAction) => {
         price = item.price / item.quantity;
         return item.itemName === action.payload;
       });
-      console.log(price);
       if (existingItem !== -1) {
         const updatedState = [...state];
         if (updatedState[existingItem].quantity > 1) {

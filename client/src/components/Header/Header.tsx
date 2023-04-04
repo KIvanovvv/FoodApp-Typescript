@@ -6,7 +6,7 @@ import {
   faCartShopping,
 } from "@fortawesome/free-solid-svg-icons";
 import { CartItem } from "../../context/contextWithReducer/types";
-import Cart from "./Cart";
+import Cart from "./Cart/Cart";
 import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../../context/contextWithReducer";
 

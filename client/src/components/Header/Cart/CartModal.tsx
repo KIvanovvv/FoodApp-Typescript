@@ -1,14 +1,24 @@
 import { useContext } from "react";
-import { CartContext } from "../../context/contextWithReducer";
+import { CartContext } from "../../../context/contextWithReducer";
 import classes from "./CartModal.module.css";
+import { useNavigate } from "react-router";
 const CartModal: React.FC<{
   closeModal: () => void;
   total: number;
   uniqueDeliveries: { restaurantName: string; price: number }[];
 }> = (props) => {
-  const { items } = useContext(CartContext);
+  const { items, actions } = useContext(CartContext);
+  const navigate = useNavigate();
+  const deliveryData = {
+    name: "Krasimir Ivanov",
+    street: "Krasna 1",
+    postcode: "1000",
+    city: "Sofia",
+    phone: "0888888888",
+  };
   const onOrderHandler = () => {
-    console.log("Ordering...");
+    actions.clearCart();
+    navigate("/order",{state: {deliveryInfo: deliveryData}});
   };
   return (
     <>
