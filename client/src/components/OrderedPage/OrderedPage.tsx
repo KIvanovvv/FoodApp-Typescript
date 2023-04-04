@@ -5,11 +5,16 @@ import { CartContext } from "../../context/contextWithReducer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { useLocation } from "react-router";
+import Menu from "../Menu/Menu";
 
 const OrderedPage = () => {
   const { items } = useContext(CartContext);
   const location = useLocation();
-  const { name, city, postcode, street, phone } = location.state.deliveryInfo;
+  if (!location.state) {
+    return <Menu />;
+  }
+  const { name, city, postcode, street, phone, price } =
+    location.state.deliveryInfo;
 
   return (
     <div className={classes.wrapper}>
@@ -45,6 +50,9 @@ const OrderedPage = () => {
           <p className={classes.tags}>
             Approximate delivery time{" "}
             <span>{`${10 + Math.trunc(Math.random() * 40)} min.`}</span>
+          </p>
+          <p className={classes.tags}>
+            Total price: <span>{price}$</span>
           </p>
         </div>
       </div>

@@ -1,24 +1,43 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { CartContext } from "../../../context/contextWithReducer";
 import classes from "./CartModal.module.css";
 import { useNavigate } from "react-router";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faExclamation,
+  faExclamationCircle,
+} from "@fortawesome/free-solid-svg-icons";
 const CartModal: React.FC<{
   closeModal: () => void;
   total: number;
   uniqueDeliveries: { restaurantName: string; price: number }[];
 }> = (props) => {
   const { items, actions } = useContext(CartContext);
+  const [name, setName] = useState("");
+  const [street, setStreet] = useState("");
+  const [postcode, setPostcode] = useState("");
+  const [city, setCity] = useState("");
+  const [phone, setPhone] = useState("");
+  const [error, setError] = useState(false);
   const navigate = useNavigate();
   const deliveryData = {
-    name: "Krasimir Ivanov",
-    street: "Krasna 1",
-    postcode: "1000",
-    city: "Sofia",
-    phone: "0888888888",
+    name,
+    street,
+    postcode,
+    city,
+    phone,
+    price: props.total.toFixed(2),
+  };
+  const onInputClick = () => {
+    setError(false);
   };
   const onOrderHandler = () => {
+    if (!name || !street || !postcode || !city || !phone) {
+      setError(true);
+      return;
+    }
     actions.clearCart();
-    navigate("/order",{state: {deliveryInfo: deliveryData}});
+    navigate("/order", { state: { deliveryInfo: deliveryData } });
   };
   return (
     <>
@@ -27,26 +46,60 @@ const CartModal: React.FC<{
       </div>
       <div className={classes.main}>
         <p className={classes.headline}>Proceed with checkout</p>
-        <div className={classes.from}>
+        <div className={classes.form}>
+          {error && (
+            <div className={classes.error}>
+              <FontAwesomeIcon
+                icon={faExclamationCircle}
+                className={classes.icon_error}
+              />
+              <p>All fields are required</p>
+            </div>
+          )}
           <div className={classes.input}>
             <label htmlFor="name">Name</label>
-            <input type="text" id="name" />
+            <input
+              type="text"
+              id="name"
+              onChange={(e) => setName(e.target.value)}
+              onClick={onInputClick}
+            />
           </div>
           <div className={classes.input}>
             <label htmlFor="street">Street</label>
-            <input type="text" id="street" />
+            <input
+              type="text"
+              id="street"
+              onChange={(e) => setStreet(e.target.value)}
+              onClick={onInputClick}
+            />
           </div>
           <div className={classes.input}>
             <label htmlFor="postal">Postal Code</label>
-            <input type="text" id="postal" />
+            <input
+              type="text"
+              id="postal"
+              onChange={(e) => setPostcode(e.target.value)}
+              onClick={onInputClick}
+            />
           </div>
           <div className={classes.input}>
             <label htmlFor="city">City</label>
-            <input type="text" id="city" />
+            <input
+              type="text"
+              id="city"
+              onChange={(e) => setCity(e.target.value)}
+              onClick={onInputClick}
+            />
           </div>
           <div className={classes.input}>
             <label htmlFor="phone">Phone number</label>
-            <input type="number" id="phone" />
+            <input
+              type="number"
+              id="phone"
+              onChange={(e) => setPhone(e.target.value)}
+              onClick={onInputClick}
+            />
           </div>
         </div>
         <div className={classes.order}>

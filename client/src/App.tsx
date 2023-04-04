@@ -15,6 +15,7 @@ function App() {
         <Route path="/menu/:category" element={<Menu />} />
         <Route path="/restaurant/:resId" element={<RestaurantPage />} />
         <Route path="/order" element={<OrderedPage />} />
+        <Route path="*"  element={<Menu />} />
       </Routes>
     </CartContextProvider>
   );
