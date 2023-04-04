@@ -32,6 +32,7 @@
   font-size: 22px;
   font-weight: bold;
   color: #eae2b7;
+  cursor: default;
 }
 .thanks_tag {
   font-size: 30px;
@@ -57,9 +58,25 @@
   flex-direction: column;
   font-size: 20px;
   gap: 10px;
+  cursor: default;
 }
 .details_container p {
   margin: 0;
+}
+.btn_rating {
+  background-color: #f77f00;
+  color: #eae2b7;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.btn_rating:hover {
+  background-color: #eae2b7;
+  color: #f77f00;
 }
 
 .tags {
@@ -77,4 +94,40 @@
   to {
     opacity: 1;
   }
+}
+.stars_container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #f77f00;
+  cursor: default;
+}
+.stars_container div {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 5px;
+}
+.icon_star {
+  color: #eae2b7;
+  cursor: pointer;
+}
+.icon_star:hover,
+.icon_star:hover ~ .icon_star {
+  color: #f77f00;
+}
+.icon_clicked {
+  color: #f77f00;
+  cursor: pointer;
+}
+.submitted {
+  background-color: #f77f00;
+  color: green;
+  padding: 10px 20px;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 20px;
+  cursor: default;
 }

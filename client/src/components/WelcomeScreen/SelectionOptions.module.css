@@ -58,6 +58,7 @@
 
 .img {
   width: 100px;
+  object-fit: cover;
 }
 
 @media all and (max-height: 840px) {
