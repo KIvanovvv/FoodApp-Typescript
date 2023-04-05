@@ -15,6 +15,7 @@ async function start() {
   runDB();
 }
 
+//FOR TESTING PURPOSES ONLY
 // (async function add() {
 //   await Restaurant.create({
 //     name: "Fun Yi",
