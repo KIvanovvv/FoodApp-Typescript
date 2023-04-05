@@ -3,6 +3,9 @@ const runDB = require("./config/database.js");
 
 const restaurantController = require("./controllers/restaurantController.js");
 // const Restaurant = require("./models/Restaurants.js");
+app.get("/", (req, res) => {
+  console.log(`Server is running`);
+});
 
 app.use("/restaurants", restaurantController);
 
