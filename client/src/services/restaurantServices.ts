@@ -1,5 +1,6 @@
 // const host = "http://localhost:5000/restaurants";
-const host = "/restaurants";
+const host = "https://clever-pike-hem.cyclic.app/restaurants";
+// const host = "/restaurants";
 
 export async function getRestaurants() {
   try {
