@@ -1,10 +1,11 @@
 const mongoose = require("mongoose");
-const MONGOURI = `mongodb+srv://kivanov:GBlcgm8P5UmOVhRU@cluster0.gkosfhk.mongodb.net/test`;
 
 async function runDB() {
   mongoose.set("strictQuery", true);
   try {
-    await mongoose.connect(MONGOURI);
+    await mongoose.connect(
+      `mongodb+srv://kivanov:GBlcgm8P5UmOVhRU@cluster0.gkosfhk.mongodb.net/test`
+    );
     console.log(`Database is connected`);
   } catch (err) {
     console.log(err);
