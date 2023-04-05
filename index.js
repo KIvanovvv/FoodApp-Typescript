@@ -2,11 +2,7 @@ const app = require("./config/express.js");
 const runDB = require("./config/database.js");
 
 const restaurantController = require("./controllers/restaurantController.js");
-const Restaurant = require("./models/Restaurants.js");
-
-app.get("/", (req, res) => {
-  res.send(`Server is running...`);
-});
+// const Restaurant = require("./models/Restaurants.js");
 
 app.use("/restaurants", restaurantController);
 
