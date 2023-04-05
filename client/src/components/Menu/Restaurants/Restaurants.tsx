@@ -6,6 +6,7 @@ import {
   getRestaurants,
 } from "../../../services/restaurantServices";
 import { RestaurantModel } from "../../../models/types";
+import Spinner from "../../Utils/Spinner";
 
 const Restaurants: React.FC<{ category: string }> = (props) => {
   const [restaurants, setRestaurants] = useState<RestaurantModel[]>([]);
@@ -55,33 +56,38 @@ const Restaurants: React.FC<{ category: string }> = (props) => {
 
   return (
     <div className={classes.wrapper}>
-      <div className={classes.actions}>
-        <div className={classes.search_container}>
-          <input
-            placeholder="Search for restaurant ..."
-            type="text"
-            className={classes.input}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-        </div>
-        <div className={classes.filter_container}>
-          <p>Sort by:</p>
-          <select
-            className={classes.select}
-            onChange={(e) => setFilter(e.target.value)}
-          >
-            <option>Name</option>
-            <option>Delivery price</option>
-            <option>Rating</option>
-            <option>Min order</option>
-          </select>
-        </div>
-      </div>
-      <ul className={classes.ul}>
-        {restaurants.map((x) => (
-          <ListRestourant key={x._id} {...x} />
-        ))}
-      </ul>
+      {loading && <Spinner w="450" h="450" />}
+      {!loading && (
+        <>
+          <div className={classes.actions}>
+            <div className={classes.search_container}>
+              <input
+                placeholder="Search for restaurant ..."
+                type="text"
+                className={classes.input}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </div>
+            <div className={classes.filter_container}>
+              <p>Sort by:</p>
+              <select
+                className={classes.select}
+                onChange={(e) => setFilter(e.target.value)}
+              >
+                <option>Name</option>
+                <option>Delivery price</option>
+                <option>Rating</option>
+                <option>Min order</option>
+              </select>
+            </div>
+          </div>
+          <ul className={classes.ul}>
+            {restaurants.map((x) => (
+              <ListRestourant key={x._id} {...x} />
+            ))}
+          </ul>
+        </>
+      )}
     </div>
   );
 };

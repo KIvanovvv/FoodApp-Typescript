@@ -10,6 +10,9 @@
   margin-top: 140px;
   cursor: default;
 }
+.spinner {
+  align-self: center;
+}
 
 .background {
   width: 1000px;

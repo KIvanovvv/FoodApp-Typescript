@@ -56,8 +56,6 @@ export async function submitRating(stars: number, dataArr: []) {
         `Something went wrong with the request: ${respones.status}`
       );
     }
-    // const data = await respones.json();
-    // return data;
   } catch (err: any) {
     throw new Error(err.message);
   }

@@ -7,6 +7,7 @@ import { faCheck, faStar } from "@fortawesome/free-solid-svg-icons";
 import { useLocation } from "react-router";
 import Menu from "../Menu/Menu";
 import { submitRating } from "../../services/restaurantServices";
+import Spinner from "../Utils/Spinner";
 
 const OrderedPage = () => {
   const { items } = useContext(CartContext);
@@ -18,6 +19,9 @@ const OrderedPage = () => {
   const [stars, setStars] = useState(0);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [submitingRating, setSubmitingRating] = useState(false);
+  const [deliveryTime, setDeliveryTime] = useState(
+    10 + Math.trunc(Math.random() * 40)
+  );
 
   const location = useLocation();
   if (!location.state) {
@@ -68,9 +72,7 @@ const OrderedPage = () => {
   const onSubmitRating = async () => {
     setSubmitingRating(true);
     await submitRating(stars, uniqueDeliveries);
-    console.log(stars);
-    console.log(uniqueDeliveries);
-
+    setSubmitingRating(false);
     setIsSubmitted(true);
   };
 
@@ -106,8 +108,7 @@ const OrderedPage = () => {
             Phone: <span>{phone}</span>
           </p>
           <p className={classes.tags}>
-            Approximate delivery time{" "}
-            <span>{`${10 + Math.trunc(Math.random() * 40)} min.`}</span>
+            Approximate delivery time <span>{`${deliveryTime} min.`}</span>
           </p>
           <p className={classes.tags}>
             Total price: <span>{price}$</span>
@@ -158,7 +159,7 @@ const OrderedPage = () => {
                 </div>
               </div>
               <button className={classes.btn_rating} onClick={onSubmitRating}>
-                Submit rating
+                {!submitingRating ? `Submit rating` : <Spinner w="20" h="20" />}
               </button>
             </>
           )}

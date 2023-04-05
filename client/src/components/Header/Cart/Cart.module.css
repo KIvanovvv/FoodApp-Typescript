@@ -147,4 +147,7 @@
     border-right: 2px solid #f77f00;
     border-bottom: 2px solid #f77f00;
   }
+  .name {
+    font-size: 14px;
+  }
 }
