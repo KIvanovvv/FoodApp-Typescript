@@ -1,19 +1,16 @@
-// .wrapper {
-//   background-color: #d62828;
-//   height: 919px;
-//   padding-bottom: 50px;
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   gap: 60px;
-// }
-
 const wrapper = {
   backgroundColor: '#d62828',
   height: '919px',
-  paddingBottom: '50px',
-  display: 'flex',
-  flexDirection: 'column',
+  padding: '30px',
   alignItems: 'center',
   gap: '60px',
 }
+
+const header = {
+  backgroundColor: '#f77f00',
+  padding: '20px 100px',
+  borderRadius: 2,
+  alignItems: 'center',
+}
+
+export default {wrapper, header}

@@ -1,4 +1,5 @@
 import Header from "../Header/Header";
+import Header2 from "../Header/Header2";
 import Restaurants from "./Restaurants/Restaurants";
 import classes from "./Menu.module.css";
 import { useContext } from "react";
@@ -11,7 +12,8 @@ const Menu = () => {
 
   return (
     <div className={classes.wrapper}>
-      <Header items={items} />
+      <Header2 />
+      {/*<Header items={items} />*/}
       <Restaurants category={category ? category : ""} />
     </div>
   );

@@ -4,35 +4,39 @@ import { faDrumstickBite } from "@fortawesome/free-solid-svg-icons";
 import pizzaImg from "../../resources/pizza.png";
 import { useState } from "react";
 import SelectionOptions from "./SelectionOptions";
+import { Stack, Typography, Box } from "@mui/material";
+import styles from "./WelcomeScreen.styles";
+
+const { wrapper, header } = styles
+
+
 const WelcomeScreen = () => {
   const [selectionVisible, setSelectionVisible] = useState(false);
   return (
-    <div className={classes.wrapper}>
-      <div className={classes.header}>
-        <div className={classes.main_header_container}>
-          <p className={classes.main_header}>Welcome to FoodApp</p>
+    <Stack sx={wrapper} >
+      <Stack sx={header}>
+        <Stack gap={3} direction='row'>
+          <Typography variant='h2' >Welcome to FoodApp</Typography>
           <FontAwesomeIcon
             icon={faDrumstickBite}
             className={classes.icon}
-            size={"3x"}
+            color='#eae2b7'
+            size="4x"
           />
-        </div>
-        <p className={classes.secondary_header}>
+        </Stack>
+        <Typography variant='h4'>
           Order delicious food with few clicks
-        </p>
-      </div>
-      <div className={classes.main}>
-        {!selectionVisible && (
+        </Typography>
+      </Stack>
+      {!selectionVisible ? <Box>
           <img
             src={pizzaImg}
             className={classes.pizza}
             onClick={() => setSelectionVisible(true)}
             alt=""
           />
-        )}
-        {selectionVisible && <SelectionOptions />}
-      </div>
-    </div>
+      </Box> : <SelectionOptions />}
+    </Stack>
   );
 };
 

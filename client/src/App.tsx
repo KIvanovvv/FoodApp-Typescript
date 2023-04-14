@@ -4,9 +4,12 @@ import RestaurantPage from "./components/RestaurantPage/RestaurantPage";
 import WelcomeScreen from "./components/WelcomeScreen/WelcomeScreen";
 import CartContextProvider from "./context/contextWithReducer";
 import OrderedPage from "./components/OrderedPage/OrderedPage";
+import { ThemeProvider  } from "@mui/material/styles";
+import theme from "./theme";
 
 function App() {
   return (
+    <ThemeProvider theme={theme}>
     <CartContextProvider>
       <Routes>
         <Route path="/" element={<WelcomeScreen />} />
@@ -18,6 +21,7 @@ function App() {
         <Route path="*"  element={<Menu />} />
       </Routes>
     </CartContextProvider>
+    </ThemeProvider>
   );
 }
 
