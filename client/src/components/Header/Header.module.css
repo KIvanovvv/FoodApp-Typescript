@@ -22,16 +22,13 @@
   font-weight: bold;
   min-width: 100px;
   text-align: center;
-  padding-bottom: 5px;
   color: #eae2b7;
-  border-radius: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .link_btn:hover {
-  background-color: #f77f00;
 }
 .header_container p {
   margin: 0;
