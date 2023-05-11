@@ -7,12 +7,18 @@ import {
 } from "../../../services/restaurantServices";
 import { RestaurantModel } from "../../../models/types";
 import Spinner from "../../Utils/Spinner";
+import { Container, TextField } from "@mui/material";
+import Filter from "./Filter";
+import { set } from "mongoose";
 
 const Restaurants: React.FC<{ category: string }> = (props) => {
   const [restaurants, setRestaurants] = useState<RestaurantModel[]>([]);
   const [loading, setLoading] = useState(false);
   const [filter, setFilter] = useState("Name");
   const [searchQuery, setSearchQuery] = useState("");
+  const onSelectFilter = (filter: string) => {
+    setFilter(filter);
+  };
   useEffect(() => {
     if (searchQuery === "") {
       if (props.category === "") {
@@ -55,20 +61,28 @@ const Restaurants: React.FC<{ category: string }> = (props) => {
   });
 
   return (
-    <div className={classes.wrapper}>
+    <Container className={classes.wrapper}>
       {loading && <Spinner w="450" h="450" />}
       {!loading && (
         <>
           <div className={classes.actions}>
-            <div className={classes.search_container}>
+            {/* <div className={classes.search_container}>
               <input
                 placeholder="Search for restaurant ..."
                 type="text"
                 className={classes.input}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
-            </div>
-            <div className={classes.filter_container}>
+            </div> */}
+            <TextField
+              id="outlined-basic"
+              label="Search for restaurant"
+              variant="outlined"
+              size="small"
+              sx={{ width: "40%" }}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            {/* <div className={classes.filter_container}>
               <p>Sort by:</p>
               <select
                 className={classes.select}
@@ -79,7 +93,8 @@ const Restaurants: React.FC<{ category: string }> = (props) => {
                 <option>Rating</option>
                 <option>Min order</option>
               </select>
-            </div>
+            </div> */}
+            <Filter onSelectFilter={onSelectFilter} />
           </div>
           <ul className={classes.ul}>
             {restaurants.map((x) => (
@@ -88,7 +103,7 @@ const Restaurants: React.FC<{ category: string }> = (props) => {
           </ul>
         </>
       )}
-    </div>
+    </Container>
   );
 };
 
