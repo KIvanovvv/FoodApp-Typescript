@@ -26,9 +26,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  text-transform: capitalize;
 }
 
 .link_btn:hover {
+  color: #f77f00;
 }
 .header_container p {
   margin: 0;

@@ -7,9 +7,19 @@ import {
 } from "../../../services/restaurantServices";
 import { RestaurantModel } from "../../../models/types";
 import Spinner from "../../Utils/Spinner";
-import { Container, TextField } from "@mui/material";
+import {
+  Container,
+  List,
+  TextField,
+  Stack,
+  Divider,
+  Typography,
+  IconButton,
+} from "@mui/material";
 import Filter from "./Filter";
-import { set } from "mongoose";
+import Switch from "@mui/material/Switch";
+import InfoIcon from "@mui/icons-material/Info";
+import ListRestourant2 from "./ListRestaurant2";
 
 const Restaurants: React.FC<{ category: string }> = (props) => {
   const [restaurants, setRestaurants] = useState<RestaurantModel[]>([]);
@@ -61,49 +71,88 @@ const Restaurants: React.FC<{ category: string }> = (props) => {
   });
 
   return (
-    <Container className={classes.wrapper}>
+    <Stack className={classes.wrapper} margin={"auto"}>
       {loading && <Spinner w="450" h="450" />}
       {!loading && (
         <>
-          <div className={classes.actions}>
-            {/* <div className={classes.search_container}>
-              <input
-                placeholder="Search for restaurant ..."
-                type="text"
-                className={classes.input}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-            </div> */}
+          <Stack direction={"row"} justifyContent={"space-around"}>
             <TextField
               id="outlined-basic"
               label="Search for restaurant"
               variant="outlined"
               size="small"
-              sx={{ width: "40%" }}
+              sx={{ width: "50%" }}
+              color="success"
+              inputProps={{
+                style: { fontWeight: "bold", color: "#f77f00" },
+              }}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
-            {/* <div className={classes.filter_container}>
-              <p>Sort by:</p>
-              <select
-                className={classes.select}
-                onChange={(e) => setFilter(e.target.value)}
-              >
-                <option>Name</option>
-                <option>Delivery price</option>
-                <option>Rating</option>
-                <option>Min order</option>
-              </select>
-            </div> */}
             <Filter onSelectFilter={onSelectFilter} />
-          </div>
-          <ul className={classes.ul}>
-            {restaurants.map((x) => (
-              <ListRestourant key={x._id} {...x} />
-            ))}
-          </ul>
+          </Stack>
+          <Stack direction={"row"} gap={10} mt={2}>
+            <Stack alignSelf={"start"} position={"sticky"} top={100} gap={2}>
+              <Typography
+                variant="h6"
+                fontWeight={"bold"}
+                noWrap
+                color={"secondary"}
+              >
+                12 restaurants
+              </Typography>
+              <Typography
+                variant="h6"
+                fontWeight={"bold"}
+                noWrap
+                color={"secondary"}
+                display={"flex"}
+                justifyContent={"space-between"}
+              >
+                Open now <Switch color="secondary" />
+              </Typography>
+              <Typography
+                variant="h6"
+                fontWeight={"bold"}
+                noWrap
+                color={"secondary"}
+                display={"flex"}
+                justifyContent={"space-between"}
+              >
+                Free delivery <Switch color="secondary" />
+              </Typography>
+              <Stack>
+                <Typography
+                  variant="h6"
+                  fontWeight={"bold"}
+                  noWrap
+                  color={"secondary"}
+                  display={"flex"}
+                  justifyContent={"space-between"}
+                  alignItems={"center"}
+                >
+                  Minimal ordering price{" "}
+                  <IconButton aria-label="info">
+                    <InfoIcon color="secondary" />
+                  </IconButton>
+                </Typography>
+              </Stack>
+            </Stack>
+            <Stack
+              spacing={2}
+              // divider={<Divider orientation="horizontal" flexItem />}
+              mt={2}
+              width="100%"
+              alignContent={"center"}
+              justifyContent={"center"}
+            >
+              {restaurants.map((x) => (
+                <ListRestourant2 key={x._id} {...x} />
+              ))}
+            </Stack>
+          </Stack>
         </>
       )}
-    </Container>
+    </Stack>
   );
 };
 

@@ -17,18 +17,30 @@ export default function Filter(props: {
   return (
     <Box sx={{ minWidth: 160 }}>
       <FormControl fullWidth size="small">
-        <InputLabel id="demo-simple-select-label">Sort by</InputLabel>
+        <InputLabel id="demo-simple-select-label" color="success">
+          Sort by
+        </InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           label="Sort by"
           value={filter}
           onChange={handleChange}
+          color="success"
+          sx={{ fontWeight: "bold", color: "#f77f00" }}
         >
-          <MenuItem value={"Name"}>Name</MenuItem>
-          <MenuItem value={"Delivery price"}>Delivery price</MenuItem>
-          <MenuItem value={"Rating"}>Rating</MenuItem>
-          <MenuItem value={"Min order"}>Min order</MenuItem>
+          <MenuItem value={"Name"} sx={{ color: "#f77f00" }}>
+            Name
+          </MenuItem>
+          <MenuItem value={"Delivery price"} sx={{ color: "#f77f00" }}>
+            Delivery price
+          </MenuItem>
+          <MenuItem value={"Rating"} sx={{ color: "#f77f00" }}>
+            Rating
+          </MenuItem>
+          <MenuItem value={"Min order"} sx={{ color: "#f77f00" }}>
+            Min order
+          </MenuItem>
         </Select>
       </FormControl>
     </Box>

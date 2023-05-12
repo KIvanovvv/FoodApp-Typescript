@@ -2,7 +2,6 @@ import classes from "./Restaurants.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 
 const ListRestourant: React.FC<{
   cardImageUrl: string;

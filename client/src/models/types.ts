@@ -10,6 +10,7 @@ export type RestaurantModel = {
   freeDelivery: number;
   food: Food[];
   category: string[];
+  status: string;
 };
 
 export type MenuHeaderProps = {

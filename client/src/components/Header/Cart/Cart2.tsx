@@ -4,11 +4,7 @@ import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
-// import ListItemButton from "@mui/material/ListItemButton";
-// import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-// import InboxIcon from "@mui/icons-material/MoveToInbox";
-// import MailIcon from "@mui/icons-material/Mail";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
@@ -88,81 +84,87 @@ export default function Cart2(props: any) {
       <Typography variant="h4" align="center" fontWeight={"bold"}>
         Cart
       </Typography>
-      <List>
-        {items.map((item) => (
-          <ListItem key={item.itemName} disablePadding>
-            <ListItemText
-              primary={`${item.itemName} x${item.quantity}`}
-              primaryTypographyProps={{
-                fontWeight: "bold",
-                fontSize: 22,
-              }}
-              secondary={`$${item.price.toFixed(2)}`}
-              secondaryTypographyProps={{
-                fontSize: 16,
-                fontWeight: "bold",
-                color: "black",
-              }}
-            />
-            {/* <ListItemIcon>
-                <RemoveCircleIcon fontSize="large" color="error" />
-              </ListItemIcon>
-              <ListItemIcon>
-                <AddCircleIcon fontSize="large" color="success" />
-              </ListItemIcon> */}
-            <IconButton onClick={() => onRemoveFromCart(item.itemName)}>
-              <RemoveCircleIcon fontSize="large" color="error" />
-            </IconButton>
-            <IconButton onClick={() => onAddFromCart(item.itemName)}>
-              <AddCircleIcon fontSize="large" color="success" />
-            </IconButton>
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {uniqueDeliveries.map((delivery) => (
-          <ListItem key={delivery.restaurantName} disablePadding>
-            <ListItemText
-              primary={`Delivery from ${delivery.restaurantName}`}
-              primaryTypographyProps={{ fontWeight: "bold", fontSize: 22 }}
-              secondary={
-                delivery.price === 0
-                  ? "Free Delivery"
-                  : "$" + delivery.price.toFixed(2)
-              }
-              secondaryTypographyProps={{
-                fontSize: 16,
-                fontWeight: "bold",
-                color: delivery.hasFreeDelivery ? "green" : "black",
-              }}
-            />
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        <ListItem disablePadding>
-          <ListItemText
-            primary={`Total Price`}
-            primaryTypographyProps={{ fontWeight: "bold", fontSize: 22 }}
-            secondary={`$${total.toFixed(2)}`}
-            secondaryTypographyProps={{
-              fontSize: 16,
-              fontWeight: "bold",
-              color: "black",
-            }}
-          />
-        </ListItem>
-      </List>
-      <Button
-        variant="contained"
-        endIcon={<ShoppingCartCheckoutIcon />}
-        size="large"
-        fullWidth
-      >
-        Checkout
-      </Button>
+      {items.length > 0 && (
+        <>
+          <List>
+            {items.map((item) => (
+              <ListItem key={item.itemName} disablePadding>
+                <ListItemText
+                  primary={`${item.itemName} x${item.quantity}`}
+                  primaryTypographyProps={{
+                    fontWeight: "bold",
+                    fontSize: 22,
+                  }}
+                  secondary={`$${item.price.toFixed(2)}`}
+                  secondaryTypographyProps={{
+                    fontSize: 16,
+                    fontWeight: "bold",
+                    color: "black",
+                  }}
+                />
+                <IconButton onClick={() => onRemoveFromCart(item.itemName)}>
+                  <RemoveCircleIcon fontSize="large" color="error" />
+                </IconButton>
+                <IconButton onClick={() => onAddFromCart(item.itemName)}>
+                  <AddCircleIcon fontSize="large" color="success" />
+                </IconButton>
+              </ListItem>
+            ))}
+          </List>
+          <Divider />
+          <List>
+            {uniqueDeliveries.map((delivery) => (
+              <ListItem key={delivery.restaurantName} disablePadding>
+                <ListItemText
+                  primary={`Delivery from ${delivery.restaurantName}`}
+                  primaryTypographyProps={{ fontWeight: "bold", fontSize: 22 }}
+                  secondary={
+                    delivery.price === 0
+                      ? "Free Delivery"
+                      : "$" + delivery.price.toFixed(2)
+                  }
+                  secondaryTypographyProps={{
+                    fontSize: 16,
+                    fontWeight: "bold",
+                    color: delivery.hasFreeDelivery ? "green" : "black",
+                  }}
+                />
+              </ListItem>
+            ))}
+          </List>
+          <Divider />
+          <List>
+            <ListItem disablePadding>
+              <ListItemText
+                primary={`Total Price`}
+                primaryTypographyProps={{ fontWeight: "bold", fontSize: 22 }}
+                secondary={`$${total.toFixed(2)}`}
+                secondaryTypographyProps={{
+                  fontSize: 16,
+                  fontWeight: "bold",
+                  color: "black",
+                }}
+              />
+            </ListItem>
+          </List>
+          <Button
+            variant="contained"
+            endIcon={<ShoppingCartCheckoutIcon />}
+            size="large"
+            fullWidth
+            color="secondary"
+          >
+            Checkout
+          </Button>
+        </>
+      )}
+      {items.length === 0 && (
+        <>
+          <Typography variant="h5" align="center" fontWeight={"bold"}>
+            Your cart is empty
+          </Typography>
+        </>
+      )}
     </Box>
   );
 
