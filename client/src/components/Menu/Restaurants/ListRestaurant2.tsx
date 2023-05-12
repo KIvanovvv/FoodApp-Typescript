@@ -21,6 +21,8 @@ import DeliveryDiningIcon from "@mui/icons-material/DeliveryDining";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import SavingsIcon from "@mui/icons-material/Savings";
 import RatingScale from "./RatingScale";
+import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
+import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
@@ -78,7 +80,7 @@ export const ListRestourant2: React.FC<{
             >
               <AccessTimeIcon
                 display={"flex"}
-                sx={{ color: props.status === "Open" ? "green" : "red" }}
+                sx={{ color: props.status === "Open" ? "#189439" : "red" }}
               />{" "}
               {props.status}
             </Typography>
@@ -137,8 +139,8 @@ export const ListRestourant2: React.FC<{
             alignContent={"center"}
             gap={1}
           >
-            <SavingsIcon color="success" fontSize="medium" /> Free delivery
-            over:{" "}
+            <CardGiftcardIcon sx={{ color: "white" }} fontSize="medium" /> Free
+            delivery over:{" "}
             <Typography display={"flex"} variant="body1" fontWeight={"bold"}>
               {props.freeDelivery}$
             </Typography>

@@ -15,11 +15,14 @@ import {
   Divider,
   Typography,
   IconButton,
+  Tooltip,
 } from "@mui/material";
 import Filter from "./Filter";
 import Switch from "@mui/material/Switch";
 import InfoIcon from "@mui/icons-material/Info";
 import ListRestourant2 from "./ListRestaurant2";
+import MinOrderRadio from "./MinOrderRadio";
+import RatingFilter from "./RatingFilter";
 
 const Restaurants: React.FC<{ category: string }> = (props) => {
   const [restaurants, setRestaurants] = useState<RestaurantModel[]>([]);
@@ -91,7 +94,13 @@ const Restaurants: React.FC<{ category: string }> = (props) => {
             <Filter onSelectFilter={onSelectFilter} />
           </Stack>
           <Stack direction={"row"} gap={10} mt={2}>
-            <Stack alignSelf={"start"} position={"sticky"} top={100} gap={2}>
+            <Stack
+              alignSelf={"start"}
+              position={"sticky"}
+              top={190}
+              gap={3}
+              mt={5}
+            >
               <Typography
                 variant="h6"
                 fontWeight={"bold"}
@@ -131,10 +140,23 @@ const Restaurants: React.FC<{ category: string }> = (props) => {
                   alignItems={"center"}
                 >
                   Minimal ordering price{" "}
-                  <IconButton aria-label="info">
-                    <InfoIcon color="secondary" />
-                  </IconButton>
+                  <Tooltip title="This is the minimal ordering price for the restaurant.   ">
+                    <IconButton aria-label="info">
+                      <InfoIcon color="secondary" />
+                    </IconButton>
+                  </Tooltip>
                 </Typography>
+                <MinOrderRadio />
+              </Stack>
+              <Stack>
+                <Typography
+                  variant="h6"
+                  fontWeight={"bold"}
+                  color={"secondary"}
+                >
+                  Rating
+                </Typography>
+                <RatingFilter />
               </Stack>
             </Stack>
             <Stack
