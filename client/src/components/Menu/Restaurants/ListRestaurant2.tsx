@@ -109,42 +109,45 @@ export const ListRestourant2: React.FC<{
           spacing={2}
           sx={{ padding: "0 10px" }}
         >
-          <Typography
-            variant="body1"
-            noWrap={true}
-            fontWeight={"bold"}
-            display={"flex"}
-            alignContent={"center"}
-            gap={1}
-          >
-            <ShoppingBasketIcon sx={{ color: "white" }} /> Min. order:{" "}
-            {props.minOrder}$
-          </Typography>
-          <Typography
-            variant="body1"
-            noWrap={true}
-            fontWeight={"bold"}
-            display={"flex"}
-            alignContent={"center"}
-            gap={1}
-          >
-            <DeliveryDiningIcon sx={{ color: "white" }} /> Delivery price:{" "}
-            {props.delivery}$
-          </Typography>
-          <Typography
-            variant="body1"
-            noWrap={true}
-            fontWeight={"bold"}
-            display={"flex"}
-            alignContent={"center"}
-            gap={1}
-          >
-            <CardGiftcardIcon sx={{ color: "white" }} fontSize="medium" /> Free
-            delivery over:{" "}
-            <Typography display={"flex"} variant="body1" fontWeight={"bold"}>
-              {props.freeDelivery}$
+          <Stack direction={"row"} gap={1}>
+            <ShoppingBasketIcon sx={{ color: "white" }} />
+            <Typography
+              variant="body1"
+              noWrap={true}
+              fontWeight={"bold"}
+              display={"flex"}
+              alignContent={"center"}
+              gap={1}
+            >
+              Min. order: {props.minOrder}$
             </Typography>
-          </Typography>
+          </Stack>
+          <Stack direction={"row"} gap={1}>
+            <DeliveryDiningIcon sx={{ color: "white" }} />
+            <Typography
+              variant="body1"
+              noWrap={true}
+              fontWeight={"bold"}
+              display={"flex"}
+              alignContent={"center"}
+              gap={1}
+            >
+              Delivery price: {props.delivery}$
+            </Typography>
+          </Stack>
+          <Stack direction={"row"} gap={1}>
+            <CardGiftcardIcon sx={{ color: "white" }} fontSize="medium" />
+            <Typography
+              variant="body1"
+              noWrap={true}
+              fontWeight={"bold"}
+              display={"flex"}
+              alignContent={"center"}
+              gap={1}
+            >
+              Free delivery over: {props.freeDelivery}${" "}
+            </Typography>
+          </Stack>
         </Stack>
       </Stack>
 

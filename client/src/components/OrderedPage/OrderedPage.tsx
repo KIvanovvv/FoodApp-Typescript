@@ -7,7 +7,7 @@ import { faCheck, faStar } from "@fortawesome/free-solid-svg-icons";
 import { useLocation } from "react-router";
 import Menu from "../Menu/Menu";
 import { submitRating } from "../../services/restaurantServices";
-import Spinner2 from "../Utils/Spinner2";
+import Spinner2 from "../Utils/Spinner";
 
 const OrderedPage = () => {
   const { items } = useContext(CartContext);

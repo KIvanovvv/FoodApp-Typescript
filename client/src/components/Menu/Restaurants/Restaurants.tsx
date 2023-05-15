@@ -1,29 +1,15 @@
 import classes from "./Restaurants.module.css";
-import ListRestourant from "./ListRestourant";
 import { useEffect, useState } from "react";
 import {
   getRestaurantByCategory,
   getRestaurants,
 } from "../../../services/restaurantServices";
 import { RestaurantModel } from "../../../models/types";
-
-import {
-  Container,
-  List,
-  TextField,
-  Stack,
-  Divider,
-  Typography,
-  IconButton,
-  Tooltip,
-} from "@mui/material";
+import { TextField, Stack } from "@mui/material";
 import Filter from "./Filter";
-import Switch from "@mui/material/Switch";
-import InfoIcon from "@mui/icons-material/Info";
 import ListRestourant2 from "./ListRestaurant2";
-import MinOrderRadio from "./MinOrderRadio";
-import RatingFilter from "./RatingFilter";
-import Spinner2 from "../../Utils/Spinner2";
+import FilterOptions from "./FilterOptions";
+import Spinner from "../../Utils/Spinner";
 
 const Restaurants: React.FC<{ category: string }> = (props) => {
   const [restaurants, setRestaurants] = useState<RestaurantModel[]>([]);
@@ -32,21 +18,42 @@ const Restaurants: React.FC<{ category: string }> = (props) => {
   const [filter, setFilter] = useState("Name");
   const [searchQuery, setSearchQuery] = useState("");
   const [showOpen, setShowOpen] = useState(false);
+  const [showFreeDelivery, setShowFreeDelivery] = useState(false);
+  const [showOpenFlag, setShowOpenFlag] = useState(false);
   const onSelectFilter = (filter: string) => {
     setFilter(filter);
   };
   useEffect(() => {
     if (searchQuery === "") {
       if (props.category === "") {
-        (async function fetchRestaurants() {
-          setLoading(true);
-          setRestaurants(await getRestaurants());
-          setLoading(false);
-        })();
+        if (!restaurants.length && !restaurantData.length) {
+          (async function fetchRestaurants() {
+            setLoading(true);
+            setRestaurants(await getRestaurants());
+            setRestaurantData(await getRestaurants());
+            setLoading(false);
+          })();
+        } else {
+          if (!showOpen) {
+            setRestaurants(restaurantData);
+          } else {
+            setRestaurants(restaurantData.filter((x) => x.status === "Open"));
+          }
+        }
       } else {
         (async function fetchRestaurants() {
           setLoading(true);
-          setRestaurants(await getRestaurantByCategory(props.category));
+          if (!showOpen) {
+            setRestaurants(
+              restaurantData.filter((x) => x.category.includes(props.category))
+            );
+          } else {
+            setRestaurants(
+              restaurantData
+                .filter((x) => x.category.includes(props.category))
+                .filter((x) => x.status === "Open")
+            );
+          }
           setLoading(false);
         })();
       }
@@ -57,18 +64,28 @@ const Restaurants: React.FC<{ category: string }> = (props) => {
         )
       );
     }
+    //FIXING ISSUE WIHT OPEN NOW SWITCH
   }, [searchQuery, props.category]);
   useEffect(() => {
     if (showOpen) {
       setRestaurants(restaurants.filter((x) => x.status === "Open"));
     } else {
-      (async function fetchRestaurants() {
-        setLoading(true);
-        setRestaurants(await getRestaurants());
-        setLoading(false);
-      })();
+      if (props.category !== "") {
+        setRestaurants(
+          restaurantData.filter((x) => x.category.includes(props.category))
+        );
+      } else {
+        setRestaurants(restaurantData);
+      }
     }
-  }, [showOpen]);
+  }, [showOpen, showOpenFlag]);
+  useEffect(() => {
+    if (showFreeDelivery) {
+      setRestaurants(restaurants.filter((x) => x.delivery === 0));
+    } else {
+      setRestaurants(restaurantData);
+    }
+  }, [showFreeDelivery]);
 
   restaurants.sort((a, b) => {
     if (filter === "Name") {
@@ -86,10 +103,16 @@ const Restaurants: React.FC<{ category: string }> = (props) => {
     }
     return 0;
   });
-
+  const toggleShowOpen = () => {
+    setShowOpen((showOpen) => !showOpen);
+  };
+  const toggleShowFreeDelivery = () => {
+    setShowFreeDelivery((showFreeDelivery) => !showFreeDelivery);
+  };
+  //State of OptionFilters should presis with the category pages
   return (
     <Stack className={classes.wrapper} margin={"auto"}>
-      {loading && <Spinner2 />}
+      {loading && <Spinner />}
       {!loading && (
         <>
           <Stack direction={"row"} justifyContent={"space-around"}>
@@ -108,91 +131,22 @@ const Restaurants: React.FC<{ category: string }> = (props) => {
             <Filter onSelectFilter={onSelectFilter} />
           </Stack>
           <Stack direction={"row"} gap={10} mt={2}>
-            <Stack
-              alignSelf={"start"}
-              position={"sticky"}
-              top={190}
-              gap={3}
-              mt={5}
-            >
-              <Typography
-                variant="h6"
-                fontWeight={"bold"}
-                noWrap
-                color={"secondary"}
-              >
-                {restaurants.length} restaurants
-              </Typography>
-              <Typography
-                variant="h6"
-                fontWeight={"bold"}
-                noWrap
-                color={"secondary"}
-                display={"flex"}
-                justifyContent={"space-between"}
-              >
-                Open now{" "}
-                <Switch
-                  color="secondary"
-                  value={showOpen}
-                  onChange={() => setShowOpen((curr) => !curr)}
-                />
-              </Typography>
-              <Typography
-                variant="h6"
-                fontWeight={"bold"}
-                noWrap
-                color={"secondary"}
-                display={"flex"}
-                justifyContent={"space-between"}
-              >
-                Free delivery <Switch color="secondary" />
-              </Typography>
-              <Stack>
-                <Typography
-                  variant="h6"
-                  fontWeight={"bold"}
-                  noWrap
-                  color={"secondary"}
-                  display={"flex"}
-                  justifyContent={"space-between"}
-                  alignItems={"center"}
-                >
-                  Minimal ordering price{" "}
-                  <Tooltip title="This is the minimal ordering price for the restaurant.   ">
-                    <IconButton aria-label="info">
-                      <InfoIcon color="secondary" />
-                    </IconButton>
-                  </Tooltip>
-                </Typography>
-                <MinOrderRadio />
-              </Stack>
-              <Stack>
-                <Typography
-                  variant="h6"
-                  fontWeight={"bold"}
-                  color={"secondary"}
-                >
-                  Rating
-                </Typography>
-                <RatingFilter />
-              </Stack>
-            </Stack>
+            <FilterOptions
+              totalRestaurants={restaurants.length}
+              showOnlyOpen={showOpen}
+              toggleShowOpen={toggleShowOpen}
+              showOnlyFreeDelivery={showFreeDelivery}
+              toggleShowFreeDelivery={toggleShowFreeDelivery}
+            />
             <Stack
               spacing={2}
-              // divider={<Divider orientation="horizontal" flexItem />}
               mt={2}
               width="100%"
               alignContent={"center"}
               justifyContent={"center"}
             >
-              {restaurants.map((x) => (
-                <ListRestourant2 key={x._id} {...x} />
-              ))}
-              {/* {showOpen &&
-                restaurants
-                  .filter((x) => x.status === "Closed")
-                  .map((x) => <ListRestourant2 key={x._id} {...x} />)} */}
+              {restaurants &&
+                restaurants.map((x) => <ListRestourant2 key={x._id} {...x} />)}
             </Stack>
           </Stack>
         </>

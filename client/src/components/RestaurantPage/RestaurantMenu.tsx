@@ -5,7 +5,7 @@ import { useParams } from "react-router";
 import { useEffect, useMemo, useState } from "react";
 import { RestaurantModel } from "../../models/types";
 import { getRestaurantById } from "../../services/restaurantServices";
-import Spinner2 from "../Utils/Spinner2";
+import Spinner2 from "../Utils/Spinner";
 
 const RestaurantMenu = () => {
   const { resId } = useParams();
