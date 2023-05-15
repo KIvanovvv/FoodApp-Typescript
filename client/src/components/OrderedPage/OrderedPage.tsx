@@ -7,7 +7,7 @@ import { faCheck, faStar } from "@fortawesome/free-solid-svg-icons";
 import { useLocation } from "react-router";
 import Menu from "../Menu/Menu";
 import { submitRating } from "../../services/restaurantServices";
-import Spinner from "../Utils/Spinner";
+import Spinner2 from "../Utils/Spinner2";
 
 const OrderedPage = () => {
   const { items } = useContext(CartContext);
@@ -159,7 +159,7 @@ const OrderedPage = () => {
                 </div>
               </div>
               <button className={classes.btn_rating} onClick={onSubmitRating}>
-                {!submitingRating ? `Submit rating` : <Spinner w="20" h="20" />}
+                {!submitingRating ? `Submit rating` : <Spinner2 />}
               </button>
             </>
           )}

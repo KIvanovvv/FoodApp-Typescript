@@ -5,7 +5,7 @@ import { useParams } from "react-router";
 import { useEffect, useMemo, useState } from "react";
 import { RestaurantModel } from "../../models/types";
 import { getRestaurantById } from "../../services/restaurantServices";
-import Spinner from "../Utils/Spinner";
+import Spinner2 from "../Utils/Spinner2";
 
 const RestaurantMenu = () => {
   const { resId } = useParams();
@@ -30,7 +30,11 @@ const RestaurantMenu = () => {
 
   return (
     <div className={classes.wrapper}>
-      {loading && <div className={classes.spinner}><Spinner w="450" h="450" /></div>}
+      {loading && (
+        <div className={classes.spinner}>
+          <Spinner2 />
+        </div>
+      )}
       {!loading && (
         <>
           <MenuHeader

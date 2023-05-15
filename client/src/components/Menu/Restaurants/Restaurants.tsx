@@ -6,7 +6,7 @@ import {
   getRestaurants,
 } from "../../../services/restaurantServices";
 import { RestaurantModel } from "../../../models/types";
-import Spinner from "../../Utils/Spinner";
+
 import {
   Container,
   List,
@@ -23,12 +23,15 @@ import InfoIcon from "@mui/icons-material/Info";
 import ListRestourant2 from "./ListRestaurant2";
 import MinOrderRadio from "./MinOrderRadio";
 import RatingFilter from "./RatingFilter";
+import Spinner2 from "../../Utils/Spinner2";
 
 const Restaurants: React.FC<{ category: string }> = (props) => {
   const [restaurants, setRestaurants] = useState<RestaurantModel[]>([]);
+  const [restaurantData, setRestaurantData] = useState<RestaurantModel[]>([]);
   const [loading, setLoading] = useState(false);
   const [filter, setFilter] = useState("Name");
   const [searchQuery, setSearchQuery] = useState("");
+  const [showOpen, setShowOpen] = useState(false);
   const onSelectFilter = (filter: string) => {
     setFilter(filter);
   };
@@ -55,6 +58,17 @@ const Restaurants: React.FC<{ category: string }> = (props) => {
       );
     }
   }, [searchQuery, props.category]);
+  useEffect(() => {
+    if (showOpen) {
+      setRestaurants(restaurants.filter((x) => x.status === "Open"));
+    } else {
+      (async function fetchRestaurants() {
+        setLoading(true);
+        setRestaurants(await getRestaurants());
+        setLoading(false);
+      })();
+    }
+  }, [showOpen]);
 
   restaurants.sort((a, b) => {
     if (filter === "Name") {
@@ -75,7 +89,7 @@ const Restaurants: React.FC<{ category: string }> = (props) => {
 
   return (
     <Stack className={classes.wrapper} margin={"auto"}>
-      {loading && <Spinner w="450" h="450" />}
+      {loading && <Spinner2 />}
       {!loading && (
         <>
           <Stack direction={"row"} justifyContent={"space-around"}>
@@ -107,7 +121,7 @@ const Restaurants: React.FC<{ category: string }> = (props) => {
                 noWrap
                 color={"secondary"}
               >
-                12 restaurants
+                {restaurants.length} restaurants
               </Typography>
               <Typography
                 variant="h6"
@@ -117,7 +131,12 @@ const Restaurants: React.FC<{ category: string }> = (props) => {
                 display={"flex"}
                 justifyContent={"space-between"}
               >
-                Open now <Switch color="secondary" />
+                Open now{" "}
+                <Switch
+                  color="secondary"
+                  value={showOpen}
+                  onChange={() => setShowOpen((curr) => !curr)}
+                />
               </Typography>
               <Typography
                 variant="h6"
@@ -170,6 +189,10 @@ const Restaurants: React.FC<{ category: string }> = (props) => {
               {restaurants.map((x) => (
                 <ListRestourant2 key={x._id} {...x} />
               ))}
+              {/* {showOpen &&
+                restaurants
+                  .filter((x) => x.status === "Closed")
+                  .map((x) => <ListRestourant2 key={x._id} {...x} />)} */}
             </Stack>
           </Stack>
         </>
