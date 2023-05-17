@@ -9,6 +9,8 @@ const FilterOptions: React.FC<{
   toggleShowOpen: () => void;
   showOnlyFreeDelivery: boolean;
   toggleShowFreeDelivery: () => void;
+  setMinOrderPrice: (minOrderPrice: number) => void;
+  onSetRatingFilter: (rating: number) => void;
 }> = (props) => {
   return (
     <>
@@ -24,12 +26,7 @@ const FilterOptions: React.FC<{
           display={"flex"}
           justifyContent={"space-between"}
         >
-          Open now{" "}
-          <Switch
-            color="secondary"
-            onChange={props.toggleShowOpen}
-            defaultChecked={props.showOnlyOpen}
-          />
+          Open now <Switch color="secondary" onChange={props.toggleShowOpen} />
         </Typography>
         <Typography
           variant="h6"
@@ -63,13 +60,13 @@ const FilterOptions: React.FC<{
               </IconButton>
             </Tooltip>
           </Typography>
-          <MinOrderRadio />
+          <MinOrderRadio onSetMinOrder={props.setMinOrderPrice} />
         </Stack>
         <Stack>
           <Typography variant="h6" fontWeight={"bold"} color={"secondary"}>
             Rating
           </Typography>
-          <RatingFilter />
+          <RatingFilter onSetRatingFilter={props.onSetRatingFilter} />
         </Stack>
       </Stack>
     </>

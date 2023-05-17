@@ -1,15 +1,14 @@
 import classes from "./Restaurants.module.css";
 import { useEffect, useState } from "react";
-import {
-  getRestaurantByCategory,
-  getRestaurants,
-} from "../../../services/restaurantServices";
+import { getRestaurants } from "../../../services/restaurantServices";
 import { RestaurantModel } from "../../../models/types";
 import { TextField, Stack } from "@mui/material";
 import Filter from "./Filter";
 import ListRestourant2 from "./ListRestaurant2";
 import FilterOptions from "./FilterOptions";
 import Spinner from "../../Utils/Spinner";
+import NoRestaurant from "./NoRestaurant";
+import filterRestaurants from "../../Utils/RestaurantFilters";
 
 const Restaurants: React.FC<{ category: string }> = (props) => {
   const [restaurants, setRestaurants] = useState<RestaurantModel[]>([]);
@@ -19,73 +18,62 @@ const Restaurants: React.FC<{ category: string }> = (props) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [showOpen, setShowOpen] = useState(false);
   const [showFreeDelivery, setShowFreeDelivery] = useState(false);
-  const [showOpenFlag, setShowOpenFlag] = useState(false);
-  const onSelectFilter = (filter: string) => {
-    setFilter(filter);
+  const [minOrderPrice, setMinOrderPrice] = useState(0);
+  const [ratingFilter, setRatingFilter] = useState(0);
+
+  const onSetRatingFilter = (rating: number) => {
+    setRatingFilter(rating);
   };
+
+  const onSetMinOrder = (minOrderPrice: number) => {
+    setMinOrderPrice(minOrderPrice);
+  };
+
+  const onSelectFilter = (selectedFilter: string) => {
+    setFilter(selectedFilter);
+  };
+
   useEffect(() => {
-    if (searchQuery === "") {
-      if (props.category === "") {
-        if (!restaurants.length && !restaurantData.length) {
-          (async function fetchRestaurants() {
-            setLoading(true);
-            setRestaurants(await getRestaurants());
-            setRestaurantData(await getRestaurants());
-            setLoading(false);
-          })();
-        } else {
-          if (!showOpen) {
-            setRestaurants(restaurantData);
-          } else {
-            setRestaurants(restaurantData.filter((x) => x.status === "Open"));
-          }
-        }
-      } else {
-        (async function fetchRestaurants() {
-          setLoading(true);
-          if (!showOpen) {
-            setRestaurants(
-              restaurantData.filter((x) => x.category.includes(props.category))
-            );
-          } else {
-            setRestaurants(
-              restaurantData
-                .filter((x) => x.category.includes(props.category))
-                .filter((x) => x.status === "Open")
-            );
-          }
-          setLoading(false);
-        })();
-      }
-    } else {
-      setRestaurants(
-        restaurants.filter((x) =>
-          x.name.toLowerCase().includes(searchQuery.toLowerCase())
-        )
-      );
+    const fetchRestaurants = async () => {
+      setLoading(true);
+      const fetchedRestaurants = await getRestaurants();
+      setRestaurants(fetchedRestaurants);
+      setRestaurantData(fetchedRestaurants);
+      setLoading(false);
+    };
+
+    if (!restaurants.length && !restaurantData.length) {
+      fetchRestaurants();
     }
-    //FIXING ISSUE WIHT OPEN NOW SWITCH
-  }, [searchQuery, props.category]);
+  }, [restaurants.length, restaurantData.length]);
+
   useEffect(() => {
-    if (showOpen) {
-      setRestaurants(restaurants.filter((x) => x.status === "Open"));
-    } else {
-      if (props.category !== "") {
-        setRestaurants(
-          restaurantData.filter((x) => x.category.includes(props.category))
-        );
-      } else {
-        setRestaurants(restaurantData);
-      }
-    }
-  }, [showOpen, showOpenFlag]);
-  useEffect(() => {
-    if (showFreeDelivery) {
-      setRestaurants(restaurants.filter((x) => x.delivery === 0));
-    } else {
-      setRestaurants(restaurantData);
-    }
-  }, [showFreeDelivery]);
+    const filteredData = filterRestaurants(
+      restaurantData,
+      showOpen,
+      showFreeDelivery,
+      props.category,
+      searchQuery,
+      minOrderPrice,
+      ratingFilter
+    );
+    setRestaurants(filteredData);
+  }, [
+    showOpen,
+    showFreeDelivery,
+    props.category,
+    searchQuery,
+    minOrderPrice,
+    ratingFilter,
+  ]);
+
+  const toggleShowOpen = () => {
+    setShowOpen((showOpen) => !showOpen);
+  };
+
+  const toggleShowFreeDelivery = () => {
+    setShowFreeDelivery((showFreeDelivery) => !showFreeDelivery);
+  };
 
   restaurants.sort((a, b) => {
     if (filter === "Name") {
@@ -103,13 +91,7 @@ const Restaurants: React.FC<{ category: string }> = (props) => {
     }
     return 0;
   });
-  const toggleShowOpen = () => {
-    setShowOpen((showOpen) => !showOpen);
-  };
-  const toggleShowFreeDelivery = () => {
-    setShowFreeDelivery((showFreeDelivery) => !showFreeDelivery);
-  };
-  //State of OptionFilters should presis with the category pages
+
   return (
     <Stack className={classes.wrapper} margin={"auto"}>
       {loading && <Spinner />}
@@ -137,6 +119,8 @@ const Restaurants: React.FC<{ category: string }> = (props) => {
               toggleShowOpen={toggleShowOpen}
               showOnlyFreeDelivery={showFreeDelivery}
               toggleShowFreeDelivery={toggleShowFreeDelivery}
+              setMinOrderPrice={onSetMinOrder}
+              onSetRatingFilter={onSetRatingFilter}
             />
             <Stack
               spacing={2}
@@ -147,6 +131,7 @@ const Restaurants: React.FC<{ category: string }> = (props) => {
             >
               {restaurants &&
                 restaurants.map((x) => <ListRestourant2 key={x._id} {...x} />)}
+              {restaurants.length === 0 && <NoRestaurant />}
             </Stack>
           </Stack>
         </>

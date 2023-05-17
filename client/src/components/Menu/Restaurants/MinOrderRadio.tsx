@@ -5,7 +5,9 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 
-export default function MinOrderRadio() {
+export default function MinOrderRadio(props: {
+  onSetMinOrder: (minOrderPrice: number) => void;
+}) {
   return (
     <FormControl>
       <RadioGroup
@@ -20,6 +22,7 @@ export default function MinOrderRadio() {
           componentsProps={{
             typography: { color: "secondary", fontWeight: "bold" },
           }}
+          onChange={() => props.onSetMinOrder(0)}
         />
         <FormControlLabel
           value="15"
@@ -28,6 +31,7 @@ export default function MinOrderRadio() {
           componentsProps={{
             typography: { color: "secondary", fontWeight: "bold" },
           }}
+          onChange={() => props.onSetMinOrder(15)}
         />
         <FormControlLabel
           value="30"
@@ -39,6 +43,7 @@ export default function MinOrderRadio() {
               fontWeight: "bold",
             },
           }}
+          onChange={() => props.onSetMinOrder(30)}
         />
       </RadioGroup>
     </FormControl>
