@@ -2,7 +2,7 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Rating from "@mui/material/Rating";
 import StarIcon from "@mui/icons-material/Star";
-import { Typography } from "@mui/material";
+import { Typography, Tooltip, Stack } from "@mui/material";
 
 const labels: { [index: string]: string } = {
   0.5: "Terrible",
@@ -31,21 +31,31 @@ export default function RatingScale(props: { rating: number[] }) {
         width: 200,
         display: "flex",
         alignItems: "center",
+        flexDirection: { xs: "column", sm: "row" },
       }}
     >
-      <Rating
-        name="text-feedback"
-        value={value}
-        readOnly
-        precision={0.5}
-        emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
-      />
+      <Stack direction={"row"} alignItems={"center"}>
+        <Rating
+          name="text-feedback"
+          value={value}
+          readOnly
+          precision={0.5}
+          emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
+        />
+        <Tooltip
+          title={`This restaurant has been rated by ${props.rating.length} people.`}
+        >
+          <Typography variant={"body2"} fontWeight={"bold"}>
+            ({props.rating.length})
+          </Typography>
+        </Tooltip>
+      </Stack>
       <Typography
-        variant={"body2"}
+        variant={"body1"}
         sx={{ ml: 2 }}
         fontWeight={"bold"}
-        noWrap
-        overflow={"visible"}
+        // noWrap
+        // overflow={"visible"}
       >
         {labels[value]}
       </Typography>

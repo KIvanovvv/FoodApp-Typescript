@@ -1,4 +1,4 @@
-import { createTheme } from "@mui/material";
+import { createTheme, responsiveFontSizes } from "@mui/material";
 
 const theme = {
   typography: {
@@ -15,5 +15,6 @@ const theme = {
     },
   },
 };
-
-export default createTheme(theme);
+let customTheme = createTheme(theme);
+customTheme = responsiveFontSizes(customTheme);
+export default customTheme;

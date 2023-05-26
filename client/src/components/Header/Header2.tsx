@@ -77,7 +77,6 @@ function ResponsiveAppBar() {
     <AppBar position="sticky">
       <Container maxWidth="xl">
         <Toolbar className="TOOLBAR_TEST" disableGutters>
-          {/*<AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />*/}
           <Box sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}>
             <FontAwesomeIcon
               icon={faDrumstickBite}

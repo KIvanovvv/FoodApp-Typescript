@@ -6,9 +6,10 @@ import { useEffect, useMemo, useState } from "react";
 import { RestaurantModel } from "../../models/types";
 import { getRestaurantById } from "../../services/restaurantServices";
 import Spinner from "../Utils/Spinner";
-import { Stack } from "@mui/material";
+import { Box, Stack } from "@mui/material";
+import MenuHeader2 from "./MenuHeader2";
 
-const RestaurantMenu = () => {
+const RestaurantMenu2 = () => {
   const { resId } = useParams();
   const [restaurant, setRestaurant] = useState<RestaurantModel>();
   const [loading, setLoading] = useState(false);
@@ -30,15 +31,15 @@ const RestaurantMenu = () => {
   }, []);
 
   return (
-    <Stack className={classes.wrapper}>
+    <Stack m={"auto"}>
       {loading && (
-        <div className={classes.spinner}>
+        <Box>
           <Spinner />
-        </div>
+        </Box>
       )}
       {!loading && (
         <>
-          <MenuHeader
+          <MenuHeader2
             pageImageUrl={restaurant?.pageImageUrl || ""}
             name={restaurant?.name || ""}
             rating={restaurant?.rating || []}
@@ -46,36 +47,10 @@ const RestaurantMenu = () => {
             delivery={restaurant?.delivery || 0}
             freeDelivery={restaurant?.freeDelivery || 0}
           />
-          <p className={classes.headline}>Menu</p>
-
-          {data.map((categoryObject) => (
-            <div
-              className={classes.cat_container}
-              key={Object.keys(categoryObject)[0]}
-            >
-              <p className={classes.cat_tags}>
-                {Object.keys(categoryObject).flat()}
-              </p>
-              <ul className={classes.ul}>
-                {categoryObject[Object.keys(categoryObject)[0]]?.map((item) => (
-                  <ListItem
-                    category={Object.keys(categoryObject)[0]}
-                    description={item.description}
-                    name={item.name}
-                    price={item.price}
-                    delivery={restaurant?.delivery || 0}
-                    freeDelivery={restaurant?.freeDelivery || 0}
-                    restaurantName={restaurant?.name || ""}
-                    key={item.name}
-                  />
-                ))}
-              </ul>
-            </div>
-          ))}
         </>
       )}
     </Stack>
   );
 };
 
-export default RestaurantMenu;
+export default RestaurantMenu2;
