@@ -45,7 +45,11 @@ export default function RatingScale(props: { rating: number[] }) {
         <Tooltip
           title={`This restaurant has been rated by ${props.rating.length} people.`}
         >
-          <Typography variant={"body2"} fontWeight={"bold"}>
+          <Typography
+            variant={"body2"}
+            fontWeight={"bold"}
+            sx={{ cursor: "default" }}
+          >
             ({props.rating.length})
           </Typography>
         </Tooltip>
@@ -54,8 +58,8 @@ export default function RatingScale(props: { rating: number[] }) {
         variant={"body1"}
         sx={{ ml: 2 }}
         fontWeight={"bold"}
-        // noWrap
-        // overflow={"visible"}
+        noWrap
+        overflow={"visible"}
       >
         {labels[value]}
       </Typography>

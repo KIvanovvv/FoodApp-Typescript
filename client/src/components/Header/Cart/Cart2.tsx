@@ -76,7 +76,7 @@ export default function Cart2(props: any) {
   };
   const list = () => (
     <Box
-      sx={{ width: 450, padding: "20px 30px" }}
+      sx={{ width: { xs: 300, sm: 450 }, padding: "20px 30px" }}
       role="presentation"
       //   onClick={toggleCart(anchor, false)}
       //   onKeyDown={toggleCart(anchor, false)}
