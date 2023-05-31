@@ -9,11 +9,13 @@ import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
 const MenuHeader2: React.FC<MenuHeaderProps> = (props) => {
   return (
     <Stack gap={2}>
-      <img
-        src={props.pageImageUrl}
-        alt={props.name}
-        className={classes.background}
-      ></img>
+      <Stack maxHeight={200} overflow={"hidden"} justifyContent={"center"}>
+        <img
+          src={props.pageImageUrl}
+          alt={props.name}
+          className={classes.background}
+        ></img>
+      </Stack>
       <Stack bgcolor={"primary.main"} gap={2} pl={{ xs: 0, md: 10 }}>
         <Stack
           direction={{

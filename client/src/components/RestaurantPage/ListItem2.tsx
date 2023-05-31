@@ -4,9 +4,11 @@ import {
   Typography,
   Button,
   Stack,
+  IconButton,
 } from "@mui/material";
-import { useContext } from "react";
+import { useContext, useRef, useEffect } from "react";
 import { CartContext } from "../../context/contextWithReducer";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 
 const ListItem2: React.FC<{
   name: string;
@@ -16,8 +18,15 @@ const ListItem2: React.FC<{
   delivery: number;
   freeDelivery: number;
   restaurantName: string;
+  categoryBtnClicked: boolean;
+  scrollDown: (ref: any) => void;
 }> = (props) => {
   const { actions } = useContext(CartContext);
+  const categoryRef = useRef(null);
+
+  useEffect(() => {
+    props.scrollDown(categoryRef);
+  }, [props.categoryBtnClicked]);
 
   const onAddToCartHandler = () => {
     actions.addItem({
@@ -29,8 +38,9 @@ const ListItem2: React.FC<{
       restaurantName: props.restaurantName,
     });
   };
+
   return (
-    <ListItem>
+    <ListItem ref={categoryRef}>
       <ListItemText
         key={props.name}
         primary={
@@ -39,18 +49,29 @@ const ListItem2: React.FC<{
               {props.name}
             </Typography>
             <Typography variant="body1">{props.description}</Typography>
-            <Typography variant="body1" fontWeight={"bold"}>
-              ${props.price.toFixed(2)}
-            </Typography>
-            <Button
-              variant="outlined"
-              sx={{ border: "2px solid green" }}
-              onClick={onAddToCartHandler}
+            <Stack
+              direction={"row"}
+              gap={2}
+              justifyContent={"center"}
+              alignContent={"center"}
             >
-              <Typography variant="body1" fontWeight={"bold"}>
-                Add to cart
+              <Typography
+                variant="body1"
+                fontWeight={"bold"}
+                sx={{ display: "flex", alignSelf: "center" }}
+              >
+                ${props.price.toFixed(2)}{" "}
               </Typography>
-            </Button>
+              <Button
+                variant="contained"
+                size="small"
+                sx={{ fontWeight: "bold" }}
+                color="success"
+                onClick={onAddToCartHandler}
+              >
+                Add
+              </Button>
+            </Stack>
           </Stack>
         }
       />
