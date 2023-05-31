@@ -58,7 +58,7 @@ export const ListRestourant2: React.FC<{
   return (
     <Card
       sx={{
-        padding: "10px 40px ",
+        padding: { xs: "10 0", sm: "10px 20px ", lg: "10px 40px " },
         cursor: "pointer",
         backgroundColor: "secondary.main",
         maxWidth: "620px",
@@ -67,7 +67,10 @@ export const ListRestourant2: React.FC<{
     >
       <CardHeader
         title={
-          <Stack direction={"row"} justifyContent={"space-between"}>
+          <Stack
+            direction={"row"}
+            justifyContent={{ xs: "center", md: "space-between" }}
+          >
             <Typography variant="h4" fontWeight={"bold"}>
               {props.name}
             </Typography>
@@ -76,6 +79,7 @@ export const ListRestourant2: React.FC<{
               display={"flex"}
               fontWeight={"bold"}
               gap={1}
+              sx={{ display: { xs: "none", md: "flex" } }}
             >
               <AccessTimeIcon
                 display={"flex"}
@@ -93,7 +97,7 @@ export const ListRestourant2: React.FC<{
         }}
       />
 
-      <Stack direction={"row"} gap={1}>
+      <Stack direction={{ md: "row" }} gap={1}>
         <CardMedia
           component="img"
           height="200"
@@ -108,6 +112,21 @@ export const ListRestourant2: React.FC<{
           spacing={2}
           sx={{ padding: "0 10px" }}
         >
+          <Stack direction={"row"} gap={1}>
+            <Typography
+              variant="body1"
+              display={"flex"}
+              fontWeight={"bold"}
+              gap={1}
+              sx={{ display: { xs: "flex", md: "none" } }}
+            >
+              <AccessTimeIcon
+                display={"flex"}
+                sx={{ color: props.status === "Open" ? "#189439" : "red" }}
+              />{" "}
+              {props.status}
+            </Typography>
+          </Stack>
           <Stack direction={"row"} gap={1}>
             <ShoppingBasketIcon sx={{ color: "white" }} />
             <Typography

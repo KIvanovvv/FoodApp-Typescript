@@ -5,6 +5,7 @@ import classes from "./Menu.module.css";
 import { useContext } from "react";
 import { CartContext } from "../../context/contextWithReducer";
 import { useParams } from "react-router";
+import FilterOptionsBottom from "./Restaurants/FilterOptionsBottom";
 
 const Menu = () => {
   const { items } = useContext(CartContext);
@@ -13,8 +14,8 @@ const Menu = () => {
   return (
     <div className={classes.wrapper}>
       <Header2 />
-      {/*<Header items={items} />*/}
       <Restaurants category={category ? category : ""} />
+      <FilterOptionsBottom />
     </div>
   );
 };

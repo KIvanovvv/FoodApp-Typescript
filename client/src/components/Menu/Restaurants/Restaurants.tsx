@@ -2,13 +2,16 @@ import classes from "./Restaurants.module.css";
 import { useEffect, useState } from "react";
 import { getRestaurants } from "../../../services/restaurantServices";
 import { RestaurantModel } from "../../../models/types";
-import { TextField, Stack } from "@mui/material";
+import { TextField, Stack, Fab, Box, ClickAwayListener } from "@mui/material";
 import Filter from "./Filter";
 import ListRestourant2 from "./ListRestaurant2";
 import FilterOptions from "./FilterOptions";
 import Spinner from "../../Utils/Spinner";
 import NoRestaurant from "./NoRestaurant";
 import filterRestaurants from "../../Utils/RestaurantFilters";
+import NavigationIcon from "@mui/icons-material/Navigation";
+import TuneIcon from "@mui/icons-material/Tune";
+import FilterOptionsBottom from "./FilterOptionsBottom";
 
 const Restaurants: React.FC<{ category: string }> = (props) => {
   const [restaurants, setRestaurants] = useState<RestaurantModel[]>([]);
@@ -20,6 +23,7 @@ const Restaurants: React.FC<{ category: string }> = (props) => {
   const [showFreeDelivery, setShowFreeDelivery] = useState(false);
   const [minOrderPrice, setMinOrderPrice] = useState(0);
   const [ratingFilter, setRatingFilter] = useState(0);
+  const [showBottomFilter, setShowBottomFilter] = useState(false);
 
   const onSetRatingFilter = (rating: number) => {
     setRatingFilter(rating);
@@ -93,7 +97,37 @@ const Restaurants: React.FC<{ category: string }> = (props) => {
   });
 
   return (
-    <Stack className={classes.wrapper} margin={"auto"}>
+    <Stack
+      className={classes.wrapper}
+      margin={"auto"}
+      sx={{ padding: "0 10px" }}
+      maxHeight={"100%"}
+    >
+      {/* Bottom filter button visible only below md BrP */}
+      <ClickAwayListener onClickAway={() => setShowBottomFilter(false)}>
+        <Stack
+          position={"fixed"}
+          // left={"70%"}
+          // sx={{ transform: "translateX(-50%)" }}
+          bottom={0}
+          height={"40px"}
+          width={"100%"}
+          alignSelf={"center"}
+          display={{ xs: "flex", md: "none" }}
+          zIndex={1}
+        >
+          <Fab
+            variant="extended"
+            color="success"
+            onClick={() => setShowBottomFilter(true)}
+            size="medium"
+            sx={{ borderRadius: "0 " }}
+          >
+            <TuneIcon sx={{ mr: 1 }} />
+            Filters
+          </Fab>
+        </Stack>
+      </ClickAwayListener>
       {loading && <Spinner />}
       {!loading && (
         <>
@@ -112,7 +146,7 @@ const Restaurants: React.FC<{ category: string }> = (props) => {
             />
             <Filter onSelectFilter={onSelectFilter} />
           </Stack>
-          <Stack direction={"row"} gap={10} mt={2}>
+          <Stack direction={"row"} gap={{ xs: 0, md: 10 }} mt={2}>
             <FilterOptions
               totalRestaurants={restaurants.length}
               showOnlyOpen={showOpen}
@@ -136,6 +170,7 @@ const Restaurants: React.FC<{ category: string }> = (props) => {
           </Stack>
         </>
       )}
+      <FilterOptionsBottom open={showBottomFilter} />
     </Stack>
   );
 };

@@ -7,7 +7,6 @@ import { CartContext } from "../../../context/contextWithReducer";
 import { Box, ClickAwayListener, Badge, IconButton } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Cart2 from "./Cart2";
-import { log } from "console";
 
 const badgeStyles = {
   "& .MuiBadge-badge": {
@@ -28,9 +27,6 @@ function CartWrapper() {
   const handleClick = () => {
     setCartVisible((prevState) => !prevState);
   };
-  React.useEffect(() => {
-    console.log("cartVisible", cartVisible);
-  }, [cartVisible]);
 
   const onClosingCart = () => {
     setCartVisible(false);
