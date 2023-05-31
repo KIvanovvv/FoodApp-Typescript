@@ -1,17 +1,13 @@
-import classes from "./RestaurantMenu.module.css";
-import MenuHeader from "./MenuHeader";
+
 import { useParams } from "react-router";
 import { useEffect, useMemo, useState, useRef } from "react";
 import { RestaurantModel } from "../../models/types";
 import { getRestaurantById } from "../../services/restaurantServices";
 import Spinner from "../Utils/Spinner";
 import {
-  Box,
   Button,
   ButtonGroup,
   List,
-  ListItemText,
-  ListItem,
   Stack,
   Typography,
   Divider,
@@ -23,20 +19,17 @@ const RestaurantMenu2 = () => {
   const { resId } = useParams();
   const [restaurant, setRestaurant] = useState<RestaurantModel>();
   const [loading, setLoading] = useState(false);
-  const [categoryBtnClicked, setCategoryBtnClicked] = useState(false);
+  const refs = useRef<any>([]);
 
-  const scrollDown = (ref: any) => {
-    window.scrollTo({
-      top: ref.current.offsetTop,
+  const assignRef = (index: number) => (element: any) => {
+    refs.current[index] = element;
+  };
+
+  const onSelectCategory = (index: number) => {
+    refs.current[index].scrollIntoView({
       behavior: "smooth",
     });
   };
-  const categoryBtnToggle = () => {
-    setCategoryBtnClicked((curr) => !curr);
-  };
-  useEffect(() => {
-    console.log("categoryBtnClicked: ", categoryBtnClicked);
-  }, [categoryBtnClicked]);
 
   const category = useMemo(
     () => Array.from(new Set(restaurant?.food.map((x) => x.category))),
@@ -73,8 +66,8 @@ const RestaurantMenu2 = () => {
               aria-label="outlined button group"
               color="secondary"
             >
-              {category.map((category) => (
-                <Button key={category} onClick={categoryBtnToggle}>
+              {category.map((category, i) => (
+                <Button key={category} onClick={() => onSelectCategory(i)}>
                   <Typography
                     variant="button"
                     fontWeight={"bold"}
@@ -87,14 +80,14 @@ const RestaurantMenu2 = () => {
             </ButtonGroup>
           </Stack>
           <Stack
-            // bgcolor={"secondary.main"}
             border={"2px solid #f77f00"}
             borderRadius={1}
             sx={{ padding: "20px 40px", maxWidth: 1200, width: "100%" }}
           >
-            {category.map((category) => (
+            {category.map((category, index) => (
               <List
                 key={category}
+                ref={assignRef(index)}
                 subheader={
                   <Typography
                     variant="h4"
@@ -121,8 +114,6 @@ const RestaurantMenu2 = () => {
                           delivery={restaurant.delivery}
                           freeDelivery={restaurant.freeDelivery}
                           restaurantName={restaurant.name}
-                          scrollDown={scrollDown}
-                          categoryBtnClicked={categoryBtnClicked}
                         />
                         <Divider />
                       </>

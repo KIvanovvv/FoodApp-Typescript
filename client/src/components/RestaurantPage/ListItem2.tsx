@@ -4,11 +4,10 @@ import {
   Typography,
   Button,
   Stack,
-  IconButton,
+
 } from "@mui/material";
-import { useContext, useRef, useEffect } from "react";
+import { useContext } from "react";
 import { CartContext } from "../../context/contextWithReducer";
-import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 
 const ListItem2: React.FC<{
   name: string;
@@ -18,15 +17,8 @@ const ListItem2: React.FC<{
   delivery: number;
   freeDelivery: number;
   restaurantName: string;
-  categoryBtnClicked: boolean;
-  scrollDown: (ref: any) => void;
 }> = (props) => {
   const { actions } = useContext(CartContext);
-  const categoryRef = useRef(null);
-
-  useEffect(() => {
-    props.scrollDown(categoryRef);
-  }, [props.categoryBtnClicked]);
 
   const onAddToCartHandler = () => {
     actions.addItem({
@@ -40,7 +32,7 @@ const ListItem2: React.FC<{
   };
 
   return (
-    <ListItem ref={categoryRef}>
+    <ListItem>
       <ListItemText
         key={props.name}
         primary={

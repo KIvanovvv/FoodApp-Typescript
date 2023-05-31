@@ -8,7 +8,7 @@ import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
 
 const MenuHeader2: React.FC<MenuHeaderProps> = (props) => {
   return (
-    <Stack gap={2}>
+    <Stack gap={2} margin={"auto"}>
       <Stack maxHeight={200} overflow={"hidden"} justifyContent={"center"}>
         <img
           src={props.pageImageUrl}
