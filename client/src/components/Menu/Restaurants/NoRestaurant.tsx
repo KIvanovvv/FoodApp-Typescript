@@ -53,7 +53,7 @@ export const NoRestaurant = () => {
         padding: "10px 40px ",
         cursor: "pointer",
         backgroundColor: "secondary.main",
-        minWidth: "620px",
+        maxWidth: "620px",
         //alignSelf: "center",
       }}
     >

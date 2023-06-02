@@ -15,7 +15,6 @@ const Menu = () => {
     <div className={classes.wrapper}>
       <Header2 />
       <Restaurants category={category ? category : ""} />
-      <FilterOptionsBottom />
     </div>
   );
 };

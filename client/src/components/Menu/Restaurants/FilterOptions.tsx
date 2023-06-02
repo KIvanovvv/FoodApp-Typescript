@@ -17,7 +17,9 @@ const FilterOptions: React.FC<{
   showOnlyFreeDelivery: boolean;
   toggleShowFreeDelivery: () => void;
   setMinOrderPrice: (minOrderPrice: number) => void;
+  minOrderPrice: number;
   onSetRatingFilter: (rating: number) => void;
+  ratingFilter: number;
 }> = (props) => {
   return (
     <>
@@ -39,7 +41,12 @@ const FilterOptions: React.FC<{
           display={"flex"}
           justifyContent={"space-between"}
         >
-          Open now <Switch color="secondary" onChange={props.toggleShowOpen} />
+          Open now{" "}
+          <Switch
+            color="secondary"
+            onChange={props.toggleShowOpen}
+            checked={props.showOnlyOpen}
+          />
         </Typography>
         <Typography
           variant="body1"
@@ -51,7 +58,7 @@ const FilterOptions: React.FC<{
           Free delivery{" "}
           <Switch
             color="secondary"
-            value={props.showOnlyFreeDelivery}
+            checked={props.showOnlyFreeDelivery}
             onChange={props.toggleShowFreeDelivery}
           />
         </Typography>
@@ -71,13 +78,19 @@ const FilterOptions: React.FC<{
               </IconButton>
             </Tooltip>
           </Typography>
-          <MinOrderRadio onSetMinOrder={props.setMinOrderPrice} />
+          <MinOrderRadio
+            onSetMinOrder={props.setMinOrderPrice}
+            orderPrice={props.minOrderPrice}
+          />
         </Stack>
         <Stack>
           <Typography variant="body1" fontWeight={"bold"} color={"secondary"}>
             Rating
           </Typography>
-          <RatingFilter onSetRatingFilter={props.onSetRatingFilter} />
+          <RatingFilter
+            onSetRatingFilter={props.onSetRatingFilter}
+            rating={props.ratingFilter}
+          />
         </Stack>
       </Stack>
     </>

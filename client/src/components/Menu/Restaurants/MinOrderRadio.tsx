@@ -3,11 +3,15 @@ import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
-import FormLabel from "@mui/material/FormLabel";
+import { useEffect } from "react";
 
 export default function MinOrderRadio(props: {
   onSetMinOrder: (minOrderPrice: number) => void;
+  orderPrice: number;
 }) {
+  useEffect(() => {
+    console.log(`orderPrice: ${props.orderPrice}`);
+  }, [props.orderPrice]);
   return (
     <FormControl>
       <RadioGroup
@@ -16,8 +20,13 @@ export default function MinOrderRadio(props: {
         name="radio-buttons-group"
       >
         <FormControlLabel
-          value="all"
-          control={<Radio color="secondary" />}
+          value="0"
+          control={
+            <Radio
+              color="secondary"
+              checked={props.orderPrice == 0 ? true : false}
+            />
+          }
           label="Show all"
           componentsProps={{
             typography: { color: "secondary", fontWeight: "bold" },
@@ -26,7 +35,12 @@ export default function MinOrderRadio(props: {
         />
         <FormControlLabel
           value="15"
-          control={<Radio color="secondary" />}
+          control={
+            <Radio
+              color="secondary"
+              checked={props.orderPrice == 15 ? true : false}
+            />
+          }
           label="15$ or less"
           componentsProps={{
             typography: { color: "secondary", fontWeight: "bold" },
@@ -35,7 +49,12 @@ export default function MinOrderRadio(props: {
         />
         <FormControlLabel
           value="30"
-          control={<Radio color="secondary" />}
+          control={
+            <Radio
+              color="secondary"
+              checked={props.orderPrice == 30 ? true : false}
+            />
+          }
           label="30$ or less"
           componentsProps={{
             typography: {

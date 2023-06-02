@@ -56,7 +56,11 @@ export default function RatingScale(props: { rating: number[] }) {
       </Stack>
       <Typography
         variant={"body1"}
-        sx={{ ml: 2 }}
+        sx={{
+          ml: 2,
+          display: "flex",
+          alignSelf: { xs: "flex-start", sm: "center" },
+        }}
         fontWeight={"bold"}
         noWrap
         overflow={"visible"}

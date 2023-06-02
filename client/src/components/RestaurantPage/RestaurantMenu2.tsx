@@ -1,4 +1,3 @@
-
 import { useParams } from "react-router";
 import { useEffect, useMemo, useState, useRef } from "react";
 import { RestaurantModel } from "../../models/types";
@@ -90,6 +89,7 @@ const RestaurantMenu2 = () => {
                 ref={assignRef(index)}
                 subheader={
                   <Typography
+                    key={category}
                     variant="h4"
                     fontWeight={"bold"}
                     sx={{

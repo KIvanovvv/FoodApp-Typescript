@@ -1,38 +1,107 @@
-import React, { useContext } from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
-import List from "@mui/material/List";
-import Divider from "@mui/material/Divider";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
-import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
-import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
-import { Button, IconButton, InputLabel, Typography } from "@mui/material";
-import { CartContext } from "../../../context/contextWithReducer";
-import { FreeDeliveryData, UniqueDelivery } from "../../../models/types";
+import { Typography, Stack, Tooltip, IconButton } from "@mui/material";
+import Switch from "@mui/material/Switch";
+import MinOrderRadio from "./MinOrderRadio";
+import InfoIcon from "@mui/icons-material/Info";
+import RatingFilter from "./RatingFilter";
 
-export default function FilterOptionsBottom(props: any) {
+const FilterOptionsBottom: React.FC<{
+  open: boolean;
+  onCloseFilter: () => void;
+  totalRestaurants: number;
+  showOnlyOpen: boolean;
+  toggleShowOpen: () => void;
+  showOnlyFreeDelivery: boolean;
+  toggleShowFreeDelivery: () => void;
+  setMinOrderPrice: (minOrderPrice: number) => void;
+  minOrderPrice: number;
+  onSetRatingFilter: (rating: number) => void;
+  ratingFilter: number;
+}> = (props) => {
   const list = () => (
-    <Box
-      sx={{ width: { xs: 300, sm: 450 }, padding: "20px 30px" }}
-      role="presentation"
-      //   onClick={toggleCart(anchor, false)}
-      //   onKeyDown={toggleCart(anchor, false)}
-    ></Box>
+    <Box sx={{ width: "100%", padding: "20px 30px" }} role="presentation">
+      <Typography
+        variant="h6"
+        fontWeight={"bold"}
+        color={"secondary"}
+        justifyContent={"center"}
+        display={"flex"}
+      >
+        {props.totalRestaurants} restaurants
+      </Typography>
+      <Typography
+        variant={"body1"}
+        fontWeight={"bold"}
+        color={"secondary"}
+        display={"flex"}
+        justifyContent={"space-between"}
+      >
+        Open now{" "}
+        <Switch
+          color="secondary"
+          onChange={props.toggleShowOpen}
+          //   value={props.showOnlyOpen}
+          checked={props.showOnlyOpen}
+        />
+      </Typography>
+      <Typography
+        variant="body1"
+        fontWeight={"bold"}
+        color={"secondary"}
+        display={"flex"}
+        justifyContent={"space-between"}
+      >
+        Free delivery{" "}
+        <Switch
+          color="secondary"
+          checked={props.showOnlyFreeDelivery}
+          onChange={props.toggleShowFreeDelivery}
+        />
+      </Typography>
+      <Stack>
+        <Typography
+          variant="body1"
+          fontWeight={"bold"}
+          color={"secondary"}
+          display={"flex"}
+          justifyContent={"space-between"}
+          alignItems={"center"}
+        >
+          Minimal ordering price{" "}
+          <Tooltip title="This is the minimal ordering price for the restaurant.   ">
+            <IconButton aria-label="info">
+              <InfoIcon color="secondary" />
+            </IconButton>
+          </Tooltip>
+        </Typography>
+        <MinOrderRadio
+          onSetMinOrder={props.setMinOrderPrice}
+          orderPrice={props.minOrderPrice}
+        />
+      </Stack>
+      <Stack>
+        <Typography variant="body1" fontWeight={"bold"} color={"secondary"}>
+          Rating
+        </Typography>
+        <RatingFilter onSetRatingFilter={props.onSetRatingFilter} rating={props.ratingFilter}/>
+      </Stack>
+    </Box>
   );
+  console.log(`-------------------------------------`);
 
+  console.log(`showOnlyOpen INSIDE: ${props.showOnlyOpen}`);
+  console.log(`showOnlyFreeDelivery INDSIDE: ${props.showOnlyFreeDelivery}`);
+  console.log(`totalRestaurants INSIDE: ${props.totalRestaurants}`);
+  console.log(`open INSIDE: ${props.open}`);
+  console.log(`onCloseFilter INSIDE: ${props.onCloseFilter}`);
   return (
     <div>
-      <Drawer
-        anchor={"bottom"}
-        open={props.open}
-        //   onClose={props.onClosingCart}
-      >
-        <Typography>7 Restaurants</Typography>
-        <Typography>Open now</Typography>
-        <Typography>Minimla delivery</Typography>
+      <Drawer anchor={"bottom"} open={props.open} onClose={props.onCloseFilter}>
+        {list()}
       </Drawer>
     </div>
   );
-}
+};
+
+export default FilterOptionsBottom;
