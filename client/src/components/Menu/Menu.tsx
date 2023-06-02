@@ -1,4 +1,4 @@
-import Header from "../Header/Header";
+// import Header from "../Header/Old/Header";
 import Header2 from "../Header/Header2";
 import Restaurants from "./Restaurants/Restaurants";
 import classes from "./Menu.module.css";

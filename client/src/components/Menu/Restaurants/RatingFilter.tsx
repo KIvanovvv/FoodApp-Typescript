@@ -7,8 +7,6 @@ export default function RatingFilter(props: {
   onSetRatingFilter: (rating: number) => void;
   rating: number;
 }) {
-  // const [value, setValue] = React.useState<number | null>(0);
-
   return (
     <Box>
       <Rating

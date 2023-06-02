@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { CartContext } from "../../../context/contextWithReducer";
+import { CartContext } from "../../../../context/contextWithReducer";
 import classes from "./CartModal.module.css";
 import { useNavigate } from "react-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -27,7 +27,7 @@ const CartModal: React.FC<{
     city,
     phone,
     price: props.total.toFixed(2),
-    uniqueDeliveries:props.uniqueDeliveries
+    uniqueDeliveries: props.uniqueDeliveries,
   };
   const onInputClick = () => {
     setError(false);

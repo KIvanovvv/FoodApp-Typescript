@@ -15,9 +15,6 @@ import { Link } from "react-router-dom";
 import { Stack } from "@mui/material";
 import CartWrapper from "./Cart/CartWrapper";
 import classes from "./Header.module.css";
-import styles from "./Header.styles";
-
-const { link } = styles;
 
 const pages = [
   {
@@ -78,11 +75,7 @@ function ResponsiveAppBar() {
       <Container maxWidth="xl">
         <Toolbar className="TOOLBAR_TEST" disableGutters>
           <Box sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}>
-            <FontAwesomeIcon
-              icon={faDrumstickBite}
-              // className={classes.icon}
-              size={"2x"}
-            />
+            <FontAwesomeIcon icon={faDrumstickBite} size={"2x"} />
           </Box>
           <Typography
             variant="h6"
@@ -144,11 +137,7 @@ function ResponsiveAppBar() {
           </Box>
           {/*<AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />*/}
           <Box sx={{ display: { xs: "flex", md: "none" }, mr: 1 }}>
-            <FontAwesomeIcon
-              icon={faDrumstickBite}
-              // className={classes.icon}
-              size={"1x"}
-            />
+            <FontAwesomeIcon icon={faDrumstickBite} size={"1x"} />
           </Box>
           <Typography
             variant="h5"

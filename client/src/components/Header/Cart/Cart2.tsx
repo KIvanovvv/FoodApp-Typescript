@@ -74,6 +74,10 @@ export default function Cart2(props: any) {
   const onHandleClear = () => {
     actions.clearCart();
   };
+  const onHandleCheckout = () => {
+    props.onClosingCart();
+    props.onOpenCheckout();
+  };
   const list = () => (
     <Box
       sx={{ width: { xs: 300, sm: 450 }, padding: "20px 30px" }}
@@ -153,6 +157,7 @@ export default function Cart2(props: any) {
             size="large"
             fullWidth
             color="secondary"
+            onClick={onHandleCheckout}
           >
             Checkout
           </Button>

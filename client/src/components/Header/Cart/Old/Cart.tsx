@@ -2,9 +2,9 @@ import classes from "./Cart.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 import { useContext, useState } from "react";
-import { CartContext } from "../../../context/contextWithReducer";
+import { CartContext } from "../../../../context/contextWithReducer";
 import CartModal from "./CartModal";
-import { FreeDeliveryData, UniqueDelivery } from "../../../models/types";
+import { FreeDeliveryData, UniqueDelivery } from "../../../../models/types";
 const Cart = () => {
   const [showModal, setShowModal] = useState(false);
   const { items, actions } = useContext(CartContext);
