@@ -25,7 +25,15 @@ function CartWrapper() {
   const [cartVisible, setCartVisible] = useState(false);
   const { items } = useContext(CartContext);
   const [checkoutVisible, setCheckoutVisible] = useState(false);
+  const [totalFromCart, setTotalFromCart] = useState(0);
+  const [uniqueDeliveries, setUniqueDeliveries] = useState([]);
+
   const quantity = items.reduce((a, b) => a + b.quantity, 0);
+
+  const getDataFromCart = (total: number, uniqueDeliveries: []) => {
+    setTotalFromCart(total);
+    setUniqueDeliveries(uniqueDeliveries);
+  };
 
   const onClosingCheckout = () => {
     setCheckoutVisible(false);
@@ -58,10 +66,14 @@ function CartWrapper() {
           cartVisible={cartVisible}
           onClosingCart={onClosingCart}
           onOpenCheckout={onOpenCheckout}
+          getData={getDataFromCart}
         />
         <Checkout
           checkoutVisible={checkoutVisible}
           onClosingCheckout={onClosingCheckout}
+          items={items}
+          total={totalFromCart}
+          uniqueDeliveries={uniqueDeliveries}
         />
       </Box>
     </ClickAwayListener>

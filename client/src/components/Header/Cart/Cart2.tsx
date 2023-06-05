@@ -11,17 +11,13 @@ import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import { Button, IconButton, InputLabel, Typography } from "@mui/material";
 import { CartContext } from "../../../context/contextWithReducer";
 import { FreeDeliveryData, UniqueDelivery } from "../../../models/types";
+import ItemList from "./Lists/ItemList";
+import DeliverList from "./Lists/DeliveryList";
+import TotalPriceList from "./Lists/TotalPriceList";
 
 export default function Cart2(props: any) {
   const { items, actions } = useContext(CartContext);
-  const onRemoveFromCart = (itemName: string) => {
-    actions.removeItem(itemName);
-  };
-  const onAddFromCart = (itemName: string) => {
-    const item = items.find((x) => x.itemName === itemName);
-    if (!item) return;
-    actions.addItem(item);
-  };
+
   const uniqueDeliveries: UniqueDelivery[] = [];
 
   items.forEach((item) => {
@@ -68,22 +64,15 @@ export default function Cart2(props: any) {
     items.reduce((a, b) => a + b.price, 0) +
     uniqueDeliveries.reduce((a: number, b: any) => a + b.price, 0);
 
-  // const onHandleCheckout = () => {
-  //   setShowModal(true);
-  // };
-  const onHandleClear = () => {
-    actions.clearCart();
-  };
   const onHandleCheckout = () => {
-    props.onClosingCart();
+    props.getData(total, uniqueDeliveries);
+    // props.onClosingCart();
     props.onOpenCheckout();
   };
   const list = () => (
     <Box
       sx={{ width: { xs: 300, sm: 450 }, padding: "20px 30px" }}
       role="presentation"
-      //   onClick={toggleCart(anchor, false)}
-      //   onKeyDown={toggleCart(anchor, false)}
     >
       <Typography variant="h4" align="center" fontWeight={"bold"}>
         Cart
@@ -92,65 +81,17 @@ export default function Cart2(props: any) {
         <>
           <List>
             {items.map((item) => (
-              <ListItem key={item.itemName} disablePadding>
-                <ListItemText
-                  primary={`${item.itemName} x${item.quantity}`}
-                  primaryTypographyProps={{
-                    fontWeight: "bold",
-                    fontSize: 22,
-                  }}
-                  secondary={`$${item.price.toFixed(2)}`}
-                  secondaryTypographyProps={{
-                    fontSize: 16,
-                    fontWeight: "bold",
-                    color: "black",
-                  }}
-                />
-                <IconButton onClick={() => onRemoveFromCart(item.itemName)}>
-                  <RemoveCircleIcon fontSize="large" color="error" />
-                </IconButton>
-                <IconButton onClick={() => onAddFromCart(item.itemName)}>
-                  <AddCircleIcon fontSize="large" color="success" />
-                </IconButton>
-              </ListItem>
+              <ItemList item={item} key={item.itemName} />
             ))}
           </List>
           <Divider />
           <List>
             {uniqueDeliveries.map((delivery) => (
-              <ListItem key={delivery.restaurantName} disablePadding>
-                <ListItemText
-                  primary={`Delivery from ${delivery.restaurantName}`}
-                  primaryTypographyProps={{ fontWeight: "bold", fontSize: 22 }}
-                  secondary={
-                    delivery.price === 0
-                      ? "Free Delivery"
-                      : "$" + delivery.price.toFixed(2)
-                  }
-                  secondaryTypographyProps={{
-                    fontSize: 16,
-                    fontWeight: "bold",
-                    color: delivery.hasFreeDelivery ? "green" : "black",
-                  }}
-                />
-              </ListItem>
+              <DeliverList delivery={delivery} key={delivery.restaurantName} />
             ))}
           </List>
           <Divider />
-          <List>
-            <ListItem disablePadding>
-              <ListItemText
-                primary={`Total Price`}
-                primaryTypographyProps={{ fontWeight: "bold", fontSize: 22 }}
-                secondary={`$${total.toFixed(2)}`}
-                secondaryTypographyProps={{
-                  fontSize: 16,
-                  fontWeight: "bold",
-                  color: "black",
-                }}
-              />
-            </ListItem>
-          </List>
+          <TotalPriceList total={total} />
           <Button
             variant="contained"
             endIcon={<ShoppingCartCheckoutIcon />}
