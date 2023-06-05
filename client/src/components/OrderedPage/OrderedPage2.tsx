@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import Header from "../Header/Old/Header";
+import Header from "../Header/Header";
 import classes from "./OrderedPage.module.css";
 import { CartContext } from "../../context/contextWithReducer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -78,7 +78,7 @@ const OrderedPage = () => {
 
   return (
     <div className={classes.wrapper}>
-      <Header items={items} />
+      <Header />
       <div className={classes.main}>
         <div className={classes.header_container}>
           <FontAwesomeIcon

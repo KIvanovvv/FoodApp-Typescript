@@ -1,14 +1,9 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
-
-import * as React from "react";
 import { useContext, useState } from "react";
 import { CartContext } from "../../../context/contextWithReducer";
-import { Box, ClickAwayListener, Badge, IconButton } from "@mui/material";
+import { Box, Badge, IconButton } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import Cart2 from "./Cart2";
+import Cart from "./Cart";
 import Checkout from "./Checkout";
-import { set } from "mongoose";
 
 const badgeStyles = {
   "& .MuiBadge-badge": {
@@ -49,34 +44,28 @@ function CartWrapper() {
   const onClosingCart = () => {
     setCartVisible(false);
   };
-  const onLooseFocus = () => {
-    setCartVisible(false);
-    setCheckoutVisible(false);
-  };
 
   return (
-    <ClickAwayListener onClickAway={() => setCartVisible(false)}>
-      <Box>
-        <IconButton onClick={handleClick}>
-          <Badge badgeContent={quantity} sx={badgeStyles}>
-            <ShoppingCartIcon sx={{ fontSize: 32, color: "#eae2b7" }} />
-          </Badge>
-        </IconButton>
-        <Cart2
-          cartVisible={cartVisible}
-          onClosingCart={onClosingCart}
-          onOpenCheckout={onOpenCheckout}
-          getData={getDataFromCart}
-        />
-        <Checkout
-          checkoutVisible={checkoutVisible}
-          onClosingCheckout={onClosingCheckout}
-          items={items}
-          total={totalFromCart}
-          uniqueDeliveries={uniqueDeliveries}
-        />
-      </Box>
-    </ClickAwayListener>
+    <Box>
+      <IconButton onClick={handleClick}>
+        <Badge badgeContent={quantity} sx={badgeStyles}>
+          <ShoppingCartIcon sx={{ fontSize: 32, color: "#eae2b7" }} />
+        </Badge>
+      </IconButton>
+      <Cart
+        cartVisible={cartVisible}
+        onClosingCart={onClosingCart}
+        onOpenCheckout={onOpenCheckout}
+        getData={getDataFromCart}
+      />
+      <Checkout
+        checkoutVisible={checkoutVisible}
+        onClosingCheckout={onClosingCheckout}
+        items={items}
+        total={totalFromCart}
+        uniqueDeliveries={uniqueDeliveries}
+      />
+    </Box>
   );
 }
 

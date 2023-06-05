@@ -3,19 +3,15 @@ import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
-import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
-import { Button, IconButton, InputLabel, Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import { CartContext } from "../../../context/contextWithReducer";
 import { FreeDeliveryData, UniqueDelivery } from "../../../models/types";
 import ItemList from "./Lists/ItemList";
 import DeliverList from "./Lists/DeliveryList";
 import TotalPriceList from "./Lists/TotalPriceList";
 
-export default function Cart2(props: any) {
+export default function Cart(props: any) {
   const { items, actions } = useContext(CartContext);
 
   const uniqueDeliveries: UniqueDelivery[] = [];

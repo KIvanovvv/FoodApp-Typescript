@@ -71,6 +71,7 @@ const RestaurantMenu2 = () => {
                     variant="button"
                     fontWeight={"bold"}
                     color={"secondary.main"}
+                    key={category}
                   >
                     {category}
                   </Typography>

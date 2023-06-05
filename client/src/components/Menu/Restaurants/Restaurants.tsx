@@ -25,13 +25,6 @@ const Restaurants: React.FC<{ category: string }> = (props) => {
   const [ratingFilter, setRatingFilter] = useState(0);
   const [showBottomFilter, setShowBottomFilter] = useState(false);
 
-  useEffect(() => {
-    console.log(`showOpen: ${showOpen}`);
-    console.log(`showFreeDelivery: ${showFreeDelivery}`);
-    console.log(`minOrderPrice: ${minOrderPrice}`);
-    console.log(`ratingFilter: ${ratingFilter}`);
-  }, [showOpen, showFreeDelivery, minOrderPrice, ratingFilter]);
-
   const onSetRatingFilter = (rating: number) => {
     setRatingFilter(rating);
   };

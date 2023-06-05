@@ -1,4 +1,4 @@
-import Header2 from "../Header/Header2";
+import Header2 from "../Header/Header";
 import RestaurantMenu2 from "./RestaurantMenu2";
 import { createTheme, responsiveFontSizes } from "@mui/material/styles";
 import { Stack } from "@mui/material";

@@ -1,17 +1,12 @@
-import * as React from "react";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
-import { useEffect } from "react";
 
 export default function MinOrderRadio(props: {
   onSetMinOrder: (minOrderPrice: number) => void;
   orderPrice: number;
 }) {
-  useEffect(() => {
-    console.log(`orderPrice: ${props.orderPrice}`);
-  }, [props.orderPrice]);
   return (
     <FormControl>
       <RadioGroup

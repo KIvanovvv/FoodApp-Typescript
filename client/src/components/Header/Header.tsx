@@ -11,7 +11,7 @@ import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import { faDrumstickBite } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Stack } from "@mui/material";
 import CartWrapper from "./Cart/CartWrapper";
 import classes from "./Header.module.css";
@@ -47,7 +47,8 @@ const pages = [
   },
 ];
 
-function ResponsiveAppBar() {
+function Header() {
+  const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -58,16 +59,8 @@ function ResponsiveAppBar() {
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
   };
 
   return (
@@ -89,8 +82,9 @@ function ResponsiveAppBar() {
               letterSpacing: ".3rem",
               color: "inherit",
               textDecoration: "none",
-              cursor: "default",
+              cursor: "pointer",
             }}
+            onClick={() => navigate("/menu")}
           >
             FoodApp
           </Typography>
@@ -144,6 +138,7 @@ function ResponsiveAppBar() {
             noWrap
             component="a"
             href=""
+            onClick={() => navigate("/menu")}
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },
@@ -153,6 +148,7 @@ function ResponsiveAppBar() {
               letterSpacing: ".3rem",
               color: "inherit",
               textDecoration: "none",
+              cursor: "pointer",
             }}
           >
             FoodApp
@@ -185,4 +181,4 @@ function ResponsiveAppBar() {
     </AppBar>
   );
 }
-export default ResponsiveAppBar;
+export default Header;

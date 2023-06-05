@@ -84,17 +84,14 @@ const FilterOptionsBottom: React.FC<{
         <Typography variant="body1" fontWeight={"bold"} color={"secondary"}>
           Rating
         </Typography>
-        <RatingFilter onSetRatingFilter={props.onSetRatingFilter} rating={props.ratingFilter}/>
+        <RatingFilter
+          onSetRatingFilter={props.onSetRatingFilter}
+          rating={props.ratingFilter}
+        />
       </Stack>
     </Box>
   );
-  console.log(`-------------------------------------`);
 
-  console.log(`showOnlyOpen INSIDE: ${props.showOnlyOpen}`);
-  console.log(`showOnlyFreeDelivery INDSIDE: ${props.showOnlyFreeDelivery}`);
-  console.log(`totalRestaurants INSIDE: ${props.totalRestaurants}`);
-  console.log(`open INSIDE: ${props.open}`);
-  console.log(`onCloseFilter INSIDE: ${props.onCloseFilter}`);
   return (
     <div>
       <Drawer anchor={"bottom"} open={props.open} onClose={props.onCloseFilter}>
