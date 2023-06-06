@@ -1,3 +1,4 @@
+import React from "react";
 import { useParams } from "react-router";
 import { useEffect, useMemo, useState, useRef } from "react";
 import { RestaurantModel } from "../../models/types";
@@ -105,9 +106,8 @@ const RestaurantMenu2 = () => {
                 {restaurant?.food.map(
                   (food) =>
                     food.category === category && (
-                      <>
+                      <React.Fragment key={`${category}-${Math.random() * 50}`}>
                         <ListItem2
-                          key={food.name}
                           category={food.category}
                           name={food.name}
                           description={food.description}
@@ -117,7 +117,7 @@ const RestaurantMenu2 = () => {
                           restaurantName={restaurant.name}
                         />
                         <Divider />
-                      </>
+                      </React.Fragment>
                     )
                 )}
               </List>

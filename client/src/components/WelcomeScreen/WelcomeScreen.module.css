@@ -1,13 +1,28 @@
 .pizza {
   animation: pizza-spin infinite 20s linear;
-  scale: 1.5;
-  margin-top: 50px;
+  /* scale: 1.5; */
+  width: 500px;
+  height: 500px;
+}
+.bounce {
+  animation: bounce 2s infinite;
+  transform: rotate(270deg);
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 .pizza:hover {
   cursor: pointer;
 }
-.icon{
+.icon {
   transform: rotate(330deg);
 }
 @keyframes pizza-spin {
@@ -19,27 +34,18 @@
   }
 }
 
-@media all and (max-height: 840px) {
-  .wrapper {
-    height: 760px;
-    gap: 20px;
-    padding: 0;
+@media all and (max-width: 900px) {
+  .pizza {
+    width: 400px;
+    height: 400px;
   }
-  .header {
-    margin: 1%;
-  }
-  .main_header {
-    font-size: 30px;
-  }
-  .secondary_header {
-    font-size: 18px;
-    margin: auto;
-  }
+}
+@media all and (max-width: 600px) {
   .icon {
-    scale: 0.7;
-
+    scale: 0.8;
   }
-  .main_header_container {
-    gap: 10px;
+  .pizza {
+    width: 300px;
+    height: 300px;
   }
 }

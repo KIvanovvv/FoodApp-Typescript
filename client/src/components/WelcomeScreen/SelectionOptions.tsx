@@ -18,7 +18,7 @@ function SelectionOption(props: {
     | { path: string; img: any; name: string; row: number };
 }) {
   return (
-    <Stack sx={card}>
+    <Stack sx={card} mt={5}>
       <Box sx={imageContainer} onClick={props.onClick}>
         <img
           src={props.option.img}
