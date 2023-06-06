@@ -69,6 +69,7 @@ const Restaurants: React.FC<{ category: string }> = (props) => {
     searchQuery,
     minOrderPrice,
     ratingFilter,
+    restaurantData,
   ]);
 
   const onCloseBottomFilter = () => {
@@ -101,12 +102,7 @@ const Restaurants: React.FC<{ category: string }> = (props) => {
   });
 
   return (
-    <Stack
-      className={classes.wrapper}
-      margin={"auto"}
-      sx={{ padding: "0 10px" }}
-      maxHeight={"100%"}
-    >
+    <Stack margin={"auto"} sx={{ padding: "0 10px" }} maxHeight={"100%"}>
       {loading && <Spinner />}
       {!loading && (
         <>
@@ -181,7 +177,7 @@ const Restaurants: React.FC<{ category: string }> = (props) => {
             >
               {restaurants &&
                 restaurants.map((x) => <ListRestourant2 key={x._id} {...x} />)}
-              {restaurants.length === 0 && <NoRestaurant />}
+              {restaurants.length === 0 && !loading && <NoRestaurant />}
             </Stack>
           </Stack>
         </>

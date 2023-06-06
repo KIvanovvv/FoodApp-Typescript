@@ -22,10 +22,10 @@ const WelcomeScreen = () => {
     flagTimeout();
   }, []);
   return (
-    <Stack bgcolor="primary.main" height={"100vh"} overflow={"visible"}>
+    <Stack height={"100vh"} bgcolor={"primary.main"} overflow={"hidden"}>
       <Stack>
         <Stack
-          gap={{ xs: 0, sm: 3 }}
+          gap={{ xs: 0, sm: 2 }}
           direction={{ xs: "column", sm: "row" }}
           mt={5}
           justifyContent={"center"}
@@ -78,6 +78,9 @@ const WelcomeScreen = () => {
           alignItems={"center"}
           alignContent={"center"}
           mt={{ xs: 0, sm: 0 }}
+          sx={{
+            borderRadius: "50%",
+          }}
         >
           <img
             src={pizzaImg}
@@ -103,6 +106,7 @@ const WelcomeScreen = () => {
                   textAlign: "center",
                 }}
                 fontWeight={"bold"}
+                pb={5}
               >
                 Click the pizza
               </Typography>

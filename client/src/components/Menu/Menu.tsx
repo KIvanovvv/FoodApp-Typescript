@@ -1,21 +1,18 @@
 // import Header from "../Header/Old/Header";
 import Header2 from "../Header/Header";
 import Restaurants from "./Restaurants/Restaurants";
-import classes from "./Menu.module.css";
-import { useContext } from "react";
-import { CartContext } from "../../context/contextWithReducer";
+
 import { useParams } from "react-router";
-import FilterOptionsBottom from "./Restaurants/FilterOptionsBottom";
+import { Stack } from "@mui/material";
 
 const Menu = () => {
-  const { items } = useContext(CartContext);
   const { category } = useParams();
 
   return (
-    <div className={classes.wrapper}>
+    <Stack gap={2}>
       <Header2 />
       <Restaurants category={category ? category : ""} />
-    </div>
+    </Stack>
   );
 };
 

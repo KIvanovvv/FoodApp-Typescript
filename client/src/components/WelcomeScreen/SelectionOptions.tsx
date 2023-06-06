@@ -4,7 +4,7 @@ import { Box, Stack, Typography } from "@mui/material";
 import styles from "./SelectionOptions.styles";
 import { selectionOptions } from "./SelectionOptions.model";
 
-const { card, imageContainer } = styles;
+const { card } = styles;
 
 function SelectionOption(props: {
   onClick: () => void;
@@ -19,14 +19,14 @@ function SelectionOption(props: {
 }) {
   return (
     <Stack sx={card} mt={5}>
-      <Box sx={imageContainer} onClick={props.onClick}>
+      <Box onClick={props.onClick}>
         <img
           src={props.option.img}
           className={classes.img}
           alt={props.option.name}
         />
       </Box>
-      <Typography color="inherit" variant="subtitle1">
+      <Typography color="inherit" variant="subtitle1" fontWeight={"bold"}>
         {props.option.name}
       </Typography>
     </Stack>
@@ -36,9 +36,9 @@ function SelectionOption(props: {
 const SelectionOptions = () => {
   const navigate = useNavigate();
   return (
-    <Stack gap={4} alignItems="center">
+    <Stack gap={{ xs: 0, sm: 4 }} alignItems="center">
       {Object.values(selectionOptions).map((row, i) => (
-        <Stack gap={5} direction="row" key={i}>
+        <Stack gap={{ xs: 3, sm: 8 }} direction="row" key={i}>
           {row.map((option) => (
             <SelectionOption
               key={option.name}

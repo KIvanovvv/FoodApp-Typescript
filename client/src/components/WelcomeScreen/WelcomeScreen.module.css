@@ -33,6 +33,12 @@
     transform: rotate(360deg);
   }
 }
+@media all and (max-width: 1600px) {
+  .pizza {
+    width: 450px;
+    height: 450px;
+  }
+}
 
 @media all and (max-width: 900px) {
   .pizza {
