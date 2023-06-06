@@ -129,7 +129,6 @@ function Header() {
               ))}
             </Menu>
           </Box>
-          {/*<AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />*/}
           <Box sx={{ display: { xs: "flex", md: "none" }, mr: 1 }}>
             <FontAwesomeIcon icon={faDrumstickBite} size={"1x"} />
           </Box>

@@ -1,7 +1,5 @@
-// import Header from "../Header/Old/Header";
-import Header2 from "../Header/Header";
+import Header from "../Header/Header";
 import Restaurants from "./Restaurants/Restaurants";
-
 import { useParams } from "react-router";
 import { Stack } from "@mui/material";
 
@@ -10,7 +8,7 @@ const Menu = () => {
 
   return (
     <Stack gap={2}>
-      <Header2 />
+      <Header />
       <Restaurants category={category ? category : ""} />
     </Stack>
   );

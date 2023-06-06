@@ -12,7 +12,7 @@ import DeliverList from "./Lists/DeliveryList";
 import TotalPriceList from "./Lists/TotalPriceList";
 
 export default function Cart(props: any) {
-  const { items, actions } = useContext(CartContext);
+  const { items } = useContext(CartContext);
 
   const uniqueDeliveries: UniqueDelivery[] = [];
 

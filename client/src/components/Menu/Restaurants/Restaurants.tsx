@@ -1,15 +1,13 @@
-import classes from "./Restaurants.module.css";
 import { useEffect, useState } from "react";
 import { getRestaurants } from "../../../services/restaurantServices";
 import { RestaurantModel } from "../../../models/types";
-import { TextField, Stack, Fab, Box, ClickAwayListener } from "@mui/material";
+import { TextField, Stack, Fab } from "@mui/material";
 import Filter from "./Filter";
-import ListRestourant2 from "./ListRestaurant2";
+import ListRestourant from "./ListRestaurant";
 import FilterOptions from "./FilterOptions";
 import Spinner from "../../Utils/Spinner";
 import NoRestaurant from "./NoRestaurant";
 import filterRestaurants from "../../Utils/RestaurantFilters";
-import NavigationIcon from "@mui/icons-material/Navigation";
 import TuneIcon from "@mui/icons-material/Tune";
 import FilterOptionsBottom from "./FilterOptionsBottom";
 
@@ -106,7 +104,7 @@ const Restaurants: React.FC<{ category: string }> = (props) => {
       {loading && <Spinner />}
       {!loading && (
         <>
-          {/* Bottom filter button visible only below md BrP */}
+          {/* Bottom filter button visible only below md break point */}
           <Stack
             position={"fixed"}
             bottom={0}
@@ -176,7 +174,7 @@ const Restaurants: React.FC<{ category: string }> = (props) => {
               justifyContent={"center"}
             >
               {restaurants &&
-                restaurants.map((x) => <ListRestourant2 key={x._id} {...x} />)}
+                restaurants.map((x) => <ListRestourant key={x._id} {...x} />)}
               {restaurants.length === 0 && !loading && <NoRestaurant />}
             </Stack>
           </Stack>

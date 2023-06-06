@@ -1,23 +1,38 @@
-import classes from "./RestaurantMenu.module.css";
-import MenuHeader from "./MenuHeader";
-import ListItem from "./ListItem";
+import React from "react";
 import { useParams } from "react-router";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
 import { RestaurantModel } from "../../models/types";
 import { getRestaurantById } from "../../services/restaurantServices";
 import Spinner from "../Utils/Spinner";
-import { Stack } from "@mui/material";
+import {
+  Button,
+  ButtonGroup,
+  List,
+  Stack,
+  Typography,
+  Divider,
+} from "@mui/material";
+import MenuHeader from "./MenuHeader";
+import ListItem from "./ListItem";
 
-const RestaurantMenu = () => {
+const RestaurantMenu2 = () => {
   const { resId } = useParams();
   const [restaurant, setRestaurant] = useState<RestaurantModel>();
   const [loading, setLoading] = useState(false);
+  const refs = useRef<any>([]);
 
-  const data = useMemo(
-    () =>
-      Array.from(new Set(restaurant?.food.map((x) => x.category))).map((x) => ({
-        [x]: restaurant?.food.filter((y) => y.category === x),
-      })),
+  const assignRef = (index: number) => (element: any) => {
+    refs.current[index] = element;
+  };
+
+  const onSelectCategory = (index: number) => {
+    refs.current[index].scrollIntoView({
+      behavior: "smooth",
+    });
+  };
+
+  const category = useMemo(
+    () => Array.from(new Set(restaurant?.food.map((x) => x.category))),
     [restaurant]
   );
 
@@ -30,12 +45,8 @@ const RestaurantMenu = () => {
   }, []);
 
   return (
-    <Stack className={classes.wrapper}>
-      {loading && (
-        <div className={classes.spinner}>
-          <Spinner />
-        </div>
-      )}
+    <Stack gap={3} alignItems={"flex-start"} alignContent={"center"}>
+      {loading && <Spinner />}
       {!loading && (
         <>
           <MenuHeader
@@ -46,36 +57,77 @@ const RestaurantMenu = () => {
             delivery={restaurant?.delivery || 0}
             freeDelivery={restaurant?.freeDelivery || 0}
           />
-          <p className={classes.headline}>Menu</p>
-
-          {data.map((categoryObject) => (
-            <div
-              className={classes.cat_container}
-              key={Object.keys(categoryObject)[0]}
+          <Stack alignSelf={"center"}>
+            <Typography variant="h4" fontWeight={"bold"} noWrap m={"auto"}>
+              Menu
+            </Typography>
+            <ButtonGroup
+              variant="outlined"
+              aria-label="outlined button group"
+              color="secondary"
             >
-              <p className={classes.cat_tags}>
-                {Object.keys(categoryObject).flat()}
-              </p>
-              <ul className={classes.ul}>
-                {categoryObject[Object.keys(categoryObject)[0]]?.map((item) => (
-                  <ListItem
-                    category={Object.keys(categoryObject)[0]}
-                    description={item.description}
-                    name={item.name}
-                    price={item.price}
-                    delivery={restaurant?.delivery || 0}
-                    freeDelivery={restaurant?.freeDelivery || 0}
-                    restaurantName={restaurant?.name || ""}
-                    key={item.name}
-                  />
-                ))}
-              </ul>
-            </div>
-          ))}
+              {category.map((category, i) => (
+                <Button key={category} onClick={() => onSelectCategory(i)}>
+                  <Typography
+                    variant="button"
+                    fontWeight={"bold"}
+                    color={"secondary.main"}
+                    key={category}
+                  >
+                    {category}
+                  </Typography>
+                </Button>
+              ))}
+            </ButtonGroup>
+          </Stack>
+          <Stack
+            border={"2px solid #f77f00"}
+            borderRadius={1}
+            sx={{ padding: "20px 40px", maxWidth: 1200, width: "100%" }}
+          >
+            {category.map((category, index) => (
+              <List
+                key={category}
+                ref={assignRef(index)}
+                subheader={
+                  <Typography
+                    key={category}
+                    variant="h4"
+                    fontWeight={"bold"}
+                    sx={{
+                      textTransform: "capitalize",
+                    }}
+                    color={"secondary.main"}
+                  >
+                    {category}
+                  </Typography>
+                }
+              >
+                {restaurant?.food.map(
+                  (food) =>
+                    food.category === category && (
+                      <React.Fragment key={`${category}-${Math.random() * 50}`}>
+                        <ListItem
+                          category={food.category}
+                          name={food.name}
+                          description={food.description}
+                          price={food.price}
+                          delivery={restaurant.delivery}
+                          freeDelivery={restaurant.freeDelivery}
+                          restaurantName={restaurant.name}
+                          status={restaurant.status}
+                        />
+                        <Divider />
+                      </React.Fragment>
+                    )
+                )}
+              </List>
+            ))}
+          </Stack>
         </>
       )}
     </Stack>
   );
 };
 
-export default RestaurantMenu;
+export default RestaurantMenu2;

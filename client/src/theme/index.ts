@@ -8,10 +8,10 @@ const theme = {
   },
   palette: {
     primary: {
-      main: "#d62828", // Set primary color to red[500]
+      main: "#d62828",
     },
     secondary: {
-      main: "#f77f00", // Set secondary color to blue[500]
+      main: "#f77f00",
     },
   },
 };

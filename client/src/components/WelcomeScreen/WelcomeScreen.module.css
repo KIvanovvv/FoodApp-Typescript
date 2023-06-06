@@ -1,8 +1,10 @@
 .pizza {
   animation: pizza-spin infinite 20s linear;
-  /* scale: 1.5; */
   width: 500px;
   height: 500px;
+}
+.pizza:hover {
+  cursor: pointer;
 }
 .bounce {
   animation: bounce 2s infinite;
@@ -19,9 +21,6 @@
   }
 }
 
-.pizza:hover {
-  cursor: pointer;
-}
 .icon {
   transform: rotate(330deg);
 }

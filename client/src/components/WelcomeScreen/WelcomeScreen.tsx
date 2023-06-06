@@ -5,7 +5,6 @@ import pizzaImg from "../../resources/pizza.png";
 import { useState } from "react";
 import SelectionOptions from "./SelectionOptions";
 import { Stack, Typography } from "@mui/material";
-import { motion } from "framer-motion";
 import KeyboardDoubleArrowUpIcon from "@mui/icons-material/KeyboardDoubleArrowUp";
 import { useEffect } from "react";
 

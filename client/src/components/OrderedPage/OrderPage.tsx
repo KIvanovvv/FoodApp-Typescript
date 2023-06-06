@@ -1,10 +1,10 @@
-import { Button, Stack, Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import Header from "../Header/Header";
 import CheckMark from "./AnimatedComponents/CheckMark";
 import Headline from "./AnimatedComponents/Headline";
 import OrderInfo from "./AnimatedComponents/OrderInfo";
 import Rating from "./AnimatedComponents/Rating";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { submitRating } from "../../services/restaurantServices";
 import { useLocation } from "react-router";
 import Menu from "../Menu/Menu";

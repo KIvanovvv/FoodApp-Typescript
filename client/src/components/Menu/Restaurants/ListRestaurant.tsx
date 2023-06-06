@@ -3,25 +3,13 @@ import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
-import CardContent from "@mui/material/CardContent";
-import CardActions from "@mui/material/CardActions";
-import Collapse from "@mui/material/Collapse";
-import Avatar from "@mui/material/Avatar";
 import IconButton, { IconButtonProps } from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import { red } from "@mui/material/colors";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import ShareIcon from "@mui/icons-material/Share";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Stack } from "@mui/material";
-import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import DeliveryDiningIcon from "@mui/icons-material/DeliveryDining";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import SavingsIcon from "@mui/icons-material/Savings";
 import RatingScale from "./RatingScale";
-import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
 import { useNavigate } from "react-router";
 
@@ -40,7 +28,7 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
   }),
 }));
 
-export const ListRestourant2: React.FC<{
+export const ListRestourant: React.FC<{
   cardImageUrl: string;
   pageImageUrl: string;
   name: string;
@@ -172,4 +160,4 @@ export const ListRestourant2: React.FC<{
   );
 };
 
-export default ListRestourant2;
+export default ListRestourant;

@@ -41,7 +41,6 @@ const FilterOptionsBottom: React.FC<{
         <Switch
           color="secondary"
           onChange={props.toggleShowOpen}
-          //   value={props.showOnlyOpen}
           checked={props.showOnlyOpen}
         />
       </Typography>

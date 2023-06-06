@@ -1,11 +1,4 @@
-import {
-  IconButton,
-  Stack,
-  Switch,
-  Tooltip,
-  Typography,
-  typographyClasses,
-} from "@mui/material";
+import { IconButton, Stack, Switch, Tooltip, Typography } from "@mui/material";
 import MinOrderRadio from "./MinOrderRadio";
 import RatingFilter from "./RatingFilter";
 import InfoIcon from "@mui/icons-material/Info";

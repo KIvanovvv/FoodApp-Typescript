@@ -6,7 +6,6 @@ import CartContextProvider from "./context/contextWithReducer";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "./theme";
 import OrderPage from "./components/OrderedPage/OrderPage";
-import { Stack } from "@mui/material";
 
 function App() {
   return (
