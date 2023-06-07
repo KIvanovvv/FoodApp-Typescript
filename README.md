@@ -1,7 +1,7 @@
 
 # FoodApp
 
-This is a personal project, which resembles a food ordering app. FoodApp is a web application that allows users to order food online. It features a user-friendly interface and a simple ordering process. This app was built using React, Typescript, CSS modules, Express, MongoDB, and Mongoose.
+This is a personal project, which resembles a food ordering app. FoodApp is a web application that allows users to order food online. It features a user-friendly interface and a simple ordering process. This app was built using React, Typescript, MUI, CSS modules, Express, MongoDB, and Mongoose.
 
 
 
@@ -21,8 +21,8 @@ This is a personal project, which resembles a food ordering app. FoodApp is a we
 
 
 ## Deployment
+Link to deployed project https://starlit-biscochitos-d17278.netlify.app/
 
-Link to the deployed project  https://voluble-mandazi-2d45da.netlify.app/
 
 
 
@@ -30,6 +30,6 @@ Link to the deployed project  https://voluble-mandazi-2d45da.netlify.app/
 ## Tech Stack
 
 
-**Front-End:** React, Typescript,  CSS Module
+**Front-End:** React, Typescript, MUI, CSS Module
 
 **Back-End:**  Express, MongoDB, Mongoose
