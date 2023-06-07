@@ -1,10 +1,17 @@
-import classes from "./ListItem.module.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
-import { useContext } from "react";
+import React from "react";
+import {
+  ListItem,
+  ListItemText,
+  Typography,
+  Button,
+  Stack,
+} from "@mui/material";
+import { useContext, useState } from "react";
 import { CartContext } from "../../context/contextWithReducer";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert, { AlertProps } from "@mui/material/Alert";
 
-const ListItem: React.FC<{
+const ListItems: React.FC<{
   name: string;
   price: number;
   description: string;
@@ -12,10 +19,26 @@ const ListItem: React.FC<{
   delivery: number;
   freeDelivery: number;
   restaurantName: string;
+  status: string;
 }> = (props) => {
+  const [isClosed, setIsClosed] = useState(
+    props.status === "Open" ? false : true
+  );
+  const [showWarning, setShowWarning] = useState(false);
   const { actions } = useContext(CartContext);
 
+  const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
+    props,
+    ref
+  ) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
+
   const onAddToCartHandler = () => {
+    if (isClosed) {
+      setShowWarning(true);
+      return;
+    }
     actions.addItem({
       itemName: props.name,
       price: props.price,
@@ -25,25 +48,58 @@ const ListItem: React.FC<{
       restaurantName: props.restaurantName,
     });
   };
+
   return (
-    <li className={classes.li}>
-      <div className={classes.item_container}>
-        <p className={classes.name}>{props.name}</p>
-        <p className={classes.price}>Price: {props.price}$</p>
-      </div>
-      <textarea
-        defaultValue={props.description}
-        readOnly={true}
-        className={classes.textarea}
+    <ListItem>
+      <ListItemText
+        key={props.name}
+        primary={
+          <Stack alignItems={"flex-start"} gap={1}>
+            <Typography variant="h6" fontWeight={"bold"}>
+              {props.name}
+            </Typography>
+            <Typography variant="body1">{props.description}</Typography>
+            <Stack
+              direction={"row"}
+              gap={2}
+              justifyContent={"center"}
+              alignContent={"center"}
+            >
+              <Typography
+                variant="body1"
+                fontWeight={"bold"}
+                sx={{ display: "flex", alignSelf: "center" }}
+              >
+                ${props.price.toFixed(2)}{" "}
+              </Typography>
+              <Button
+                variant="contained"
+                size="small"
+                sx={{ fontWeight: "bold" }}
+                color="success"
+                onClick={onAddToCartHandler}
+              >
+                Add
+              </Button>
+            </Stack>
+          </Stack>
+        }
       />
-      <FontAwesomeIcon
-        icon={faCirclePlus}
-        size={"3x"}
-        className={classes.icon}
-        onClick={onAddToCartHandler}
-      />
-    </li>
+      <Snackbar
+        open={showWarning}
+        autoHideDuration={6000}
+        onClose={() => setShowWarning(false)}
+      >
+        <Alert
+          onClose={() => setShowWarning(false)}
+          severity="warning"
+          sx={{ width: "100%" }}
+        >
+          This restaurant is closed.
+        </Alert>
+      </Snackbar>
+    </ListItem>
   );
 };
 
-export default ListItem;
+export default ListItems;

@@ -1,21 +1,19 @@
-import classes from "./Cart.module.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
-import { useContext, useState } from "react";
+import React, { useContext } from "react";
+import Box from "@mui/material/Box";
+import Drawer from "@mui/material/Drawer";
+import List from "@mui/material/List";
+import Divider from "@mui/material/Divider";
+import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
+import { Button, Typography } from "@mui/material";
 import { CartContext } from "../../../context/contextWithReducer";
-import CartModal from "./CartModal";
 import { FreeDeliveryData, UniqueDelivery } from "../../../models/types";
-const Cart = () => {
-  const [showModal, setShowModal] = useState(false);
-  const { items, actions } = useContext(CartContext);
-  const onRemoveFromCart = (itemName: string) => {
-    actions.removeItem(itemName);
-  };
-  const onAddFromCart = (itemName: string) => {
-    const item = items.find((x) => x.itemName === itemName);
-    if (!item) return;
-    actions.addItem(item);
-  };
+import ItemList from "./Lists/ItemList";
+import DeliverList from "./Lists/DeliveryList";
+import TotalPriceList from "./Lists/TotalPriceList";
+
+export default function Cart(props: any) {
+  const { items } = useContext(CartContext);
+
   const uniqueDeliveries: UniqueDelivery[] = [];
 
   items.forEach((item) => {
@@ -63,99 +61,66 @@ const Cart = () => {
     uniqueDeliveries.reduce((a: number, b: any) => a + b.price, 0);
 
   const onHandleCheckout = () => {
-    setShowModal(true);
+    props.getData(total, uniqueDeliveries);
+    // props.onClosingCart();
+    props.onOpenCheckout();
   };
-  const onHandleClear = () => {
-    actions.clearCart();
-  };
-
-  const closeModal = () => {
-    setShowModal(false);
-  };
+  const list = () => (
+    <Box
+      sx={{ width: { xs: 300, sm: 450 }, padding: "20px 30px" }}
+      role="presentation"
+    >
+      <Typography variant="h4" align="center" fontWeight={"bold"}>
+        Cart
+      </Typography>
+      {items.length > 0 && (
+        <>
+          <List>
+            {items.map((item) => (
+              <ItemList item={item} key={item.itemName} />
+            ))}
+          </List>
+          <Divider />
+          <List>
+            {uniqueDeliveries.map((delivery) => (
+              <DeliverList delivery={delivery} key={delivery.restaurantName} />
+            ))}
+          </List>
+          <Divider />
+          <TotalPriceList total={total} />
+          <Button
+            variant="contained"
+            endIcon={<ShoppingCartCheckoutIcon />}
+            size="large"
+            fullWidth
+            color="secondary"
+            onClick={onHandleCheckout}
+          >
+            Checkout
+          </Button>
+        </>
+      )}
+      {items.length === 0 && (
+        <>
+          <Typography variant="h5" align="center" fontWeight={"bold"}>
+            Your cart is empty
+          </Typography>
+        </>
+      )}
+    </Box>
+  );
 
   return (
-    <>
-      {showModal && (
-        <CartModal
-          closeModal={closeModal}
-          total={total}
-          uniqueDeliveries={uniqueDeliveries}
-        />
-      )}
-      <div className={classes.container}>
-        <p className={classes.headline}>Cart</p>
-        <ul className={classes.ul}>
-          {items.length > 0 &&
-            items.map((x) => (
-              <li className={classes.li} key={x.itemName}>
-                <div className={classes.info_container}>
-                  <p className={classes.name}>{x.itemName}</p>
-                  <p className={classes.price}>{x.price.toFixed(2)}$</p>
-                </div>
-                <div className={classes.actions}>
-                  <p className={classes.counter}>{x.quantity}</p>
-                  <FontAwesomeIcon
-                    icon={faMinus}
-                    className={classes.icon}
-                    onClick={() => {
-                      onRemoveFromCart(x.itemName);
-                    }}
-                  />
-                  <FontAwesomeIcon
-                    icon={faPlus}
-                    className={classes.icon}
-                    onClick={() => {
-                      onAddFromCart(x.itemName);
-                    }}
-                  />
-                </div>
-              </li>
-            ))}
-          {uniqueDeliveries.map(
-            (x: { restaurantName: string; price: number }) => (
-              <li className={classes.li} key={x.restaurantName}>
-                <div className={classes.info_container}>
-                  <p className={classes.name}>
-                    Delivery from {x.restaurantName}
-                  </p>
-                  <p
-                    className={
-                      x.price === 0
-                        ? `${classes.price} ${classes.free}`
-                        : classes.price
-                    }
-                  >
-                    {x.price === 0 ? "Free" : `${x.price} $`}
-                  </p>
-                </div>
-              </li>
-            )
-          )}
-        </ul>
-        {items.length > 0 && (
-          <div className={classes.footer}>
-            <div className={classes.total_container}>
-              <p className={classes.total}>Total amount: {total.toFixed(2)}$</p>
-            </div>
-            <div className={classes.btns_container}>
-              <button
-                className={classes.btn_checkout}
-                onClick={onHandleCheckout}
-              >
-                Checkout
-              </button>{" "}
-              <button className={classes.btn_clear} onClick={onHandleClear}>
-                Clear Cart
-              </button>{" "}
-            </div>
-          </div>
-        )}
-        {items.length === 0 && (
-          <p className={classes.empty}>Your cart is empty</p>
-        )}
-      </div>
-    </>
+    <div>
+      <React.Fragment>
+        <Drawer
+          anchor={"right"}
+          open={props.cartVisible}
+          onClose={props.onClosingCart}
+        >
+          {list()}
+        </Drawer>
+      </React.Fragment>
+    </div>
   );
-};
-
-export default Cart;
+}

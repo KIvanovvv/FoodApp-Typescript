@@ -1,18 +1,19 @@
-import { useParams } from "react-router-dom";
-import Header from "../Header/Header";
-import classes from "./RestaurantPage.module.css";
+import Header2 from "../Header/Header";
 import RestaurantMenu from "./RestaurantMenu";
-import { useContext } from "react";
-import { CartContext } from "../../context/contextWithReducer";
+import { Stack } from "@mui/material";
+
 const Restaurant = () => {
-
-  const { items } = useContext(CartContext);
-
   return (
-    <div className={classes.wrapper}>
-      <Header items={items} />
-      <RestaurantMenu />
-    </div>
+    <>
+      <Header2 />
+      <Stack
+        flexWrap={"wrap"}
+        alignContent={"center"}
+        pt={{ xl: 4, lg: 4, md: 2, sm: 2, xs: 2 }}
+      >
+        <RestaurantMenu />
+      </Stack>
+    </>
   );
 };
 export default Restaurant;
